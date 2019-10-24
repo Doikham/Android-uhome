@@ -49,9 +49,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-//    implementation 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'org.springframework.mobile:spring-mobile-device:2.0.0.M3'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 }
 repositories {
     maven {
