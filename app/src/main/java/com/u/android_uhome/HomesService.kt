@@ -10,5 +10,5 @@ import retrofit2.http.Query
 
 interface HomesService {
     @GET("/api/device/{uid}")
-    fun getDeviceDetail(@Path("uid") uid: Int?) : Call<ResponseBody>
+    fun getDeviceDetail(@Path("uid") uid: Int?) : Call<List<HomeModel.Response>>
 }

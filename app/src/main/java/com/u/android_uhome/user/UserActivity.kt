@@ -25,7 +25,7 @@ class UserActivity : AppCompatActivity() {
             //            sendGet()
 //            Toast.makeText(applicationContext,
 //                response, Toast.LENGTH_SHORT).show()
-            post()
+
         }
     }
 

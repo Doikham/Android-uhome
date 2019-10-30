@@ -4,10 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 class HomeModel {
 
-    data class Devices(
-        @SerializedName("user_name") val userName: String
-    )
-
     data class Response(
         @SerializedName("_id") val deviceId: String,
         @SerializedName("uid") val userId: Int,
