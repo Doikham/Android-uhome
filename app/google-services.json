@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "454485998969",
+    "firebase_url": "https://uhome-755de.firebaseio.com",
+    "project_id": "uhome-755de",
+    "storage_bucket": "uhome-755de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454485998969:android:172207e2bd11c6345703a8",
+        "android_client_info": {
+          "package_name": "com.u.android_uhome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454485998969-f5053453m54drka68pn2hhf9o5kim1qa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBgZvutygKoZIl1ul9BKv5eLXzZgVItTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454485998969-f5053453m54drka68pn2hhf9o5kim1qa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

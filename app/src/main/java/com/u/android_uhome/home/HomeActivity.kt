@@ -2,6 +2,7 @@ package com.u.android_uhome.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,12 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         HomeConfigure.configure(this)
+
+        val bundle = intent.extras
+        val tokenId = bundle!!.getString("token")
+
+        Toast.makeText(this@HomeActivity, tokenId,
+            Toast.LENGTH_LONG).show()
 
         deviceList.layoutManager = LinearLayoutManager(this)
         deviceList.itemAnimator = DefaultItemAnimator()
