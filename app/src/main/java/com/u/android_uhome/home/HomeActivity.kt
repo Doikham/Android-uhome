@@ -20,7 +20,7 @@ class HomeActivity : AppCompatActivity() {
 
     lateinit var interactor: HomeInteractor
     lateinit var router: HomeRouter
-//    lateinit var api: Api
+    lateinit var model: HomeModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,29 +35,33 @@ class HomeActivity : AppCompatActivity() {
 
         deviceList.layoutManager = LinearLayoutManager(this)
         deviceList.itemAnimator = DefaultItemAnimator()
-//        private var retrofit: Retrofit? = null
-        var baseUrl = "http://ec2-13-229-73-124.ap-southeast-1.compute.amazonaws.com:3000"
-
         val retrofit = Retrofit.Builder()
-                    .baseUrl(baseUrl)
+//                    .baseUrl(getString(R.string.baseUrl))
+                    .baseUrl("http://ec2-18-139-110-142.ap-southeast-1.compute.amazonaws.com:3000")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 
-//        var service = api.getRetrofitInstance().create(HomesService::class.java)
+//        var service = retrofit.create(HomesService::class.java)
+//        val call = service.getDeviceDetail(1)
+//        call.enqueue(object: Callback<List<HomeModel.Response>> {
+//            override fun onResponse(call: Call<List<HomeModel.Response>>,
+//                           response: Response<List<HomeModel.Response>>) {
+//                setAdapterData(response.body()!!)
+//            }
+//            override fun onFailure(call:Call<List<HomeModel.Response>>, throwable:Throwable) {
+//                Toast.makeText(this@HomeActivity, "Unable to load devices",
+//                    Toast.LENGTH_SHORT).show()
+//            }
+//        })
+
         var service = retrofit.create(HomesService::class.java)
-        val call = service.getDeviceDetail(1)
+        val call = service.getDeviceList("1111")
         call.enqueue(object: Callback<List<HomeModel.Response>> {
-            //Handle a successful response//
             override fun onResponse(call: Call<List<HomeModel.Response>>,
-                           response: Response<List<HomeModel.Response>>) {
-//                print(response.body())
-//                Toast.makeText(this@HomeActivity, response.body().toString(),
-//                    Toast.LENGTH_LONG).show()
+                                    response: Response<List<HomeModel.Response>>) {
                 setAdapterData(response.body()!!)
             }
-            //Handle execution failures//
             override fun onFailure(call:Call<List<HomeModel.Response>>, throwable:Throwable) {
-                //If the request fails, then display the following toast//
                 Toast.makeText(this@HomeActivity, "Unable to load devices",
                     Toast.LENGTH_SHORT).show()
             }

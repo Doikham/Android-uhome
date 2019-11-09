@@ -36,7 +36,7 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="ThemeOverlay.FirebaseIcon" parent="AppTheme">
+    <style name="ThemeOverlay.HomeIcon" parent="AppTheme">
         <item name="android:layout_marginTop">@dimen/icon_top_margin</item>
         <item name="android:layout_marginBottom">@dimen/icon_bottom_margin</item>
     </style>
