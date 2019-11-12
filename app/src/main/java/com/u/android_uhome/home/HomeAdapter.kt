@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.u.android_uhome.R
 import kotlinx.android.synthetic.main.item.view.*
@@ -29,6 +31,7 @@ class HomeAdapter(private val devices: List<HomeModel.Response>): RecyclerView.A
         holder.status.text = devices[position].status
         holder.userId.text = devices[position].userId.toString()
         holder.deviceId.text = devices[position].deviceId
+        holder.on.isChecked = devices[position].on
     }
 
     class ViewHolder(itemLayoutView: View) : RecyclerView.ViewHolder(itemLayoutView) {
@@ -36,5 +39,6 @@ class HomeAdapter(private val devices: List<HomeModel.Response>): RecyclerView.A
         val status: TextView = itemLayoutView.deviceStatus
         val userId: TextView = itemLayoutView.userId
         val deviceId: TextView = itemLayoutView.deviceId
+        var on: Switch = itemLayoutView.toggleBtn
     }
 }
