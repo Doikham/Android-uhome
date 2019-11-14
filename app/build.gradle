@@ -65,6 +65,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.2.1'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.estimote:proximity-sdk:1.0.5'
+    implementation 'com.estimote:mustard:0.2.1'
+    implementation 'com.estimote:scanning-plugin:0.25.4'
+
 }
 repositories {
     maven {
