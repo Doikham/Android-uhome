@@ -33,9 +33,6 @@ class HomeActivity : AppCompatActivity() {
         val bundle = intent.extras
         val tokenId = bundle!!.getString("token")
 
-//        Toast.makeText(this@HomeActivity, tokenId,
-//            Toast.LENGTH_LONG).show()
-
         deviceList.layoutManager = LinearLayoutManager(this)
         deviceList.itemAnimator = DefaultItemAnimator()
         val retrofit = Retrofit.Builder()
@@ -43,34 +40,35 @@ class HomeActivity : AppCompatActivity() {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 
-        var service = retrofit.create(HomesService::class.java)
-        val call = service.getDeviceDetail(1)
-        call.enqueue(object: Callback<List<HomeModel.Response>> {
-            override fun onResponse(call: Call<List<HomeModel.Response>>,
-                           response: Response<List<HomeModel.Response>>) {
-                setAdapterData(response.body()!!)
-                val intent = Intent(this@HomeActivity, EstimoteActivity::class.java)
-                startActivity(intent)
-            }
-            override fun onFailure(call:Call<List<HomeModel.Response>>, throwable:Throwable) {
-                Toast.makeText(this@HomeActivity, "Unable to load devices",
-                    Toast.LENGTH_SHORT).show()
-            }
-        })
-
 //        var service = retrofit.create(HomesService::class.java)
-//        val mockedToken = "1111"
-//        val call = service.getDeviceList(mockedToken)
+//        val call = service.getDeviceDetail(1)
 //        call.enqueue(object: Callback<List<HomeModel.Response>> {
-//            override fun onResponse(call: Call<List<HomeModel.Response>>?,
-//                                    response: Response<List<HomeModel.Response>>?) {
-//                setAdapterData(response?.body())
+//            override fun onResponse(call: Call<List<HomeModel.Response>>,
+//                           response: Response<List<HomeModel.Response>>) {
+//                setAdapterData(response.body()!!)
+//                val intent = Intent(this@HomeActivity, EstimoteActivity::class.java)
+//                intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+//                startActivity(intent)
 //            }
-//            override fun onFailure(call:Call<List<HomeModel.Response>>?, throwable:Throwable?) {
+//            override fun onFailure(call:Call<List<HomeModel.Response>>, throwable:Throwable) {
 //                Toast.makeText(this@HomeActivity, "Unable to load devices",
 //                    Toast.LENGTH_SHORT).show()
 //            }
 //        })
+
+        var service = retrofit.create(HomesService::class.java)
+        val request = HomeModel.Request("1111")
+        val call = service.getDeviceList(request)
+        call.enqueue(object: Callback<List<HomeModel.Response>> {
+            override fun onResponse(call: Call<List<HomeModel.Response>>?,
+                                    response: Response<List<HomeModel.Response>>?) {
+                setAdapterData(response?.body())
+            }
+            override fun onFailure(call:Call<List<HomeModel.Response>>?, throwable:Throwable?) {
+                Toast.makeText(this@HomeActivity, "Unable to load devices",
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
 
     }
 

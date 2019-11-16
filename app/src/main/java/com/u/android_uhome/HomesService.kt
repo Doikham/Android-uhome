@@ -12,10 +12,6 @@ interface HomesService {
     @GET("/api/device/{uid}")
     fun getDeviceDetail(@Path("uid") uid: Int?) : Call<List<HomeModel.Response>>
 
-    @FormUrlEncoded
     @POST("/api/device/get")
-    fun getDeviceList(@Field("idToken") idToken: String) : Call<List<HomeModel.Response>>
-
-//    @POST("/api/device/get")
-//    fun getDeviceList(@Body request: HomeModel.Request) : Call<List<HomeModel.Response>>
+    fun getDeviceList(@Body request: HomeModel.Request) : Call<List<HomeModel.Response>>
 }

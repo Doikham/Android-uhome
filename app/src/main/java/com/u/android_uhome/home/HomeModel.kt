@@ -6,14 +6,14 @@ import com.google.gson.annotations.SerializedName
 class HomeModel {
 
     data class Response(
-        @SerializedName("_id") @Expose val deviceId: String,
-        @SerializedName("uid") @Expose val userId: Int,
-        @SerializedName("name") @Expose val deviceName: String,
-        @SerializedName("status") @Expose val status: String,
-        @SerializedName("on") @Expose val on: Boolean
+        @SerializedName("_id") val deviceId: String,
+        @SerializedName("uid") val userId: String,
+        @SerializedName("name") val deviceName: String,
+        @SerializedName("status") val status: String,
+        @SerializedName("on") val on: Boolean
     )
 
     data class Request(
-        @SerializedName("idToken") @Expose val token: String
+        @SerializedName("idToken") val token: String
     )
 }
