@@ -1,6 +1,5 @@
 package com.u.android_uhome.home
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 class HomeModel {
@@ -15,5 +14,24 @@ class HomeModel {
 
     data class Request(
         @SerializedName("idToken") val token: String
+    )
+
+    data class RequestToggle(
+        @SerializedName("idToken") val token: String,
+        @SerializedName("did") val deviceId: String,
+        @SerializedName("current_status") val currentStatus: String
+    )
+
+    data class ResponseToggle(
+        @SerializedName("did") val deviceId: String,
+        @SerializedName("current_status") val currentStatus: String
+    )
+
+    data class ResponseStartTimer(
+        @SerializedName("_id") val deviceId: String,
+        @SerializedName("uid") val userId: String,
+        @SerializedName("name") val deviceName: String,
+        @SerializedName("status") val status: String,
+        @SerializedName("on") val on: Boolean
     )
 }

@@ -31,42 +31,32 @@ class HomeActivity : AppCompatActivity() {
         HomeConfigure.configure(this)
 
         val bundle = intent.extras
-        val tokenId = bundle!!.getString("token")
+        val tokenId = bundle?.getString("token")
 
         deviceList.layoutManager = LinearLayoutManager(this)
         deviceList.itemAnimator = DefaultItemAnimator()
-        val retrofit = Retrofit.Builder()
-                    .baseUrl(getString(R.string.baseUrl))
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
 
-//        var service = retrofit.create(HomesService::class.java)
-//        val call = service.getDeviceDetail(1)
-//        call.enqueue(object: Callback<List<HomeModel.Response>> {
-//            override fun onResponse(call: Call<List<HomeModel.Response>>,
-//                           response: Response<List<HomeModel.Response>>) {
-//                setAdapterData(response.body()!!)
-//                val intent = Intent(this@HomeActivity, EstimoteActivity::class.java)
-//                intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-//                startActivity(intent)
-//            }
-//            override fun onFailure(call:Call<List<HomeModel.Response>>, throwable:Throwable) {
-//                Toast.makeText(this@HomeActivity, "Unable to load devices",
-//                    Toast.LENGTH_SHORT).show()
-//            }
-//        })
+        val retrofit = Retrofit.Builder()
+            .baseUrl(getString(R.string.baseUrl))
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
         var service = retrofit.create(HomesService::class.java)
-        val request = HomeModel.Request("1111")
+        val request = HomeModel.Request(tokenId!!)
         val call = service.getDeviceList(request)
-        call.enqueue(object: Callback<List<HomeModel.Response>> {
-            override fun onResponse(call: Call<List<HomeModel.Response>>?,
-                                    response: Response<List<HomeModel.Response>>?) {
+        call.enqueue(object : Callback<List<HomeModel.Response>> {
+            override fun onResponse(
+                call: Call<List<HomeModel.Response>>?,
+                response: Response<List<HomeModel.Response>>?
+            ) {
                 setAdapterData(response?.body())
             }
-            override fun onFailure(call:Call<List<HomeModel.Response>>?, throwable:Throwable?) {
-                Toast.makeText(this@HomeActivity, "Unable to load devices",
-                    Toast.LENGTH_SHORT).show()
+
+            override fun onFailure(call: Call<List<HomeModel.Response>>?, throwable: Throwable?) {
+                Toast.makeText(
+                    this@HomeActivity, "Unable to load devices",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
 

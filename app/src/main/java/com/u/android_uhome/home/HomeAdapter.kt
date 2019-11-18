@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.TextView
-import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.u.android_uhome.R
 import kotlinx.android.synthetic.main.item.view.*
@@ -29,7 +28,7 @@ class HomeAdapter(private val devices: List<HomeModel.Response>): RecyclerView.A
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = devices[position].deviceName
         holder.status.text = devices[position].status
-        holder.userId.text = devices[position].userId.toString()
+        holder.userId.text = devices[position].userId
         holder.deviceId.text = devices[position].deviceId
         holder.on.isChecked = devices[position].on
     }

@@ -14,4 +14,10 @@ interface HomesService {
 
     @POST("/api/device/get")
     fun getDeviceList(@Body request: HomeModel.Request) : Call<List<HomeModel.Response>>
+
+    @POST("/api/toggleswitch")
+    fun toggleSwitch(@Body request: HomeModel.RequestToggle) : Call<HomeModel.ResponseToggle>
+
+    @POST("/api/toggleswitch")
+    fun startTimer(@Body request: HomeModel.Request) : Call<HomeModel.ResponseStartTimer>
 }

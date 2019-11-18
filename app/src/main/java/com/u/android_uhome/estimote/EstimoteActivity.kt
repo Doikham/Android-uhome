@@ -1,4 +1,5 @@
 package com.u.android_uhome.estimote
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,12 +14,15 @@ class EstimoteActivity : AppCompatActivity() {
 
         val app = application as EstimoteApplication
 
+        val bundle = intent.extras
+        val tokenId = bundle?.getString("token")
+
         RequirementsWizardFactory
             .createEstimoteRequirementsWizard()
             .fulfillRequirements(this,
                 onRequirementsFulfilled = {
                     Log.d("app", "requirements fulfilled")
-                    app.enableBeaconNotifications()
+                    app.enableBeaconNotifications(tokenId!!)
                 },
                 onRequirementsMissing = { requirements ->
                     Log.e("app", "requirements missing: $requirements")

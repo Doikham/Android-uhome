@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GetTokenResult
 import com.google.firebase.auth.GoogleAuthProvider
 import com.u.android_uhome.R
+import com.u.android_uhome.estimote.EstimoteActivity
 import com.u.android_uhome.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_user.*
 
@@ -42,6 +43,8 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
             .build()
         googleSignInClient = getClient(this, gso)
         auth = FirebaseAuth.getInstance()
+
+        revokeAccess()
     }
 
     public override fun onStart() {
@@ -78,7 +81,11 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
                             val idToken = task.result!!.token
                             val intent = Intent(this, HomeActivity::class.java)
                             intent.putExtra("token", idToken)
+                            val intent1 = Intent(this, EstimoteActivity::class.java)
+                            intent1.putExtra("token", idToken)
+                            intent1.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
                             startActivity(intent)
+                            startActivity(intent1)
                         } else {
                             task.exception
                         }
@@ -86,7 +93,8 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Snackbar.make(main_layout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(main_layout, "Authentication Failed.", Snackbar.LENGTH_SHORT)
+                        .show()
                 }
             }
     }
