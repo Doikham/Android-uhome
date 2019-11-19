@@ -72,14 +72,16 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
                     updateUI(user)
-                    auth.currentUser!!.getIdToken(true).addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val idToken = task.result!!.token
-                            val intent = Intent(this, HomeActivity::class.java)
-                            intent.putExtra("token", idToken)
-                            startActivity(intent)
-                        } else {
-                            task.exception
+                    startApplication.setOnClickListener {
+                        auth.currentUser!!.getIdToken(true).addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val idToken = task.result!!.token
+                                val intent = Intent(this, HomeActivity::class.java)
+                                intent.putExtra("token", idToken)
+                                startActivity(intent)
+                            } else {
+                                task.exception
+                            }
                         }
                     }
                 } else {
@@ -114,9 +116,11 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         if (user != null) {
             signInButton.visibility = View.GONE
             signOutAndDisconnect.visibility = View.VISIBLE
+            startApplication.visibility = View.VISIBLE
         } else {
             signInButton.visibility = View.VISIBLE
             signOutAndDisconnect.visibility = View.GONE
+            startApplication.visibility = View.GONE
         }
     }
 
