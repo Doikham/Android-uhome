@@ -1,10 +1,7 @@
 package com.u.android_uhome.estimote
 
-import android.content.Intent
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.u.android_uhome.HomesService
-import com.u.android_uhome.R
+import com.u.android_uhome.APICenter
 import com.u.android_uhome.home.HomeActivity
 import com.u.android_uhome.home.HomeModel
 import retrofit2.Call
@@ -22,8 +19,8 @@ class EstimoteService {
 
     lateinit var home: HomeActivity
 
-    fun callStartTimer(token: String){
-        var service = retrofit.create(HomesService::class.java)
+    fun callStartTimer(token: String) {
+        var service = retrofit.create(APICenter::class.java)
         val request = HomeModel.Request(token)
         val call = service.startTimer(request)
         call.enqueue(object : Callback<HomeModel.ResponseStartTimer> {
@@ -33,7 +30,11 @@ class EstimoteService {
             ) {
                 Toast.makeText(home, "Start Timer", Toast.LENGTH_LONG).show()
             }
-            override fun onFailure(call: Call<HomeModel.ResponseStartTimer>?, throwable: Throwable?) {
+
+            override fun onFailure(
+                call: Call<HomeModel.ResponseStartTimer>?,
+                throwable: Throwable?
+            ) {
 
             }
         })

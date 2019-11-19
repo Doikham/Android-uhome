@@ -8,8 +8,7 @@
     <string name="user_id">user_id</string>
     <string name="device_id">device_id</string>
     <string name="app_name">uHome</string>
-<!--    <string name="token">454485998969-f5053453m54drka68pn2hhf9o5kim1qa.apps.googleusercontent.com</string>-->
-    <string name="token">514062511683-eepc5bqser2ri7b6igk0voptt0l2q4vl.apps.googleusercontent.com</string>
+    <string name="token">514062511683-g99h027n07ua3egp3dhnhb9pvbqrces2.apps.googleusercontent.com</string>
     <string name="baseUrl">http://ec2-18-139-110-142.ap-southeast-1.compute.amazonaws.com:3000</string>
     <string name="label_google_sign_in">Firebase + Google Sign In</string>
     <string name="desc_google_sign_in">Use a Google Sign In credential to authenticate with Firebase.</string>

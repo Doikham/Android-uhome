@@ -1,7 +1,6 @@
 package com.u.android_uhome.home
 
-import com.u.android_uhome.HomesService
-import com.u.android_uhome.api.Api
+import com.u.android_uhome.APICenter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,7 +15,7 @@ class HomeService {
         .build()
 
     fun callToggleSwitch(token: String, deviceId: String, currentStatus: String) {
-        var service = retrofit.create(HomesService::class.java)
+        var service = retrofit.create(APICenter::class.java)
         val request = HomeModel.RequestToggle(token, deviceId, currentStatus)
         val call = service.toggleSwitch(request)
         call.enqueue(object : Callback<HomeModel.ResponseToggle> {

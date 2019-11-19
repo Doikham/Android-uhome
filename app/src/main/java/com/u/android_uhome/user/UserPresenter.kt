@@ -1,2 +1,2 @@
-package com.u.android_uhome.scene.home
+package com.u.android_uhome.user
 

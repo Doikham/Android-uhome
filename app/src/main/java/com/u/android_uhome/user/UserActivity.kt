@@ -12,15 +12,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GetTokenResult
 import com.google.firebase.auth.GoogleAuthProvider
 import com.u.android_uhome.R
-import com.u.android_uhome.estimote.EstimoteActivity
 import com.u.android_uhome.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_user.*
 
@@ -81,11 +77,7 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
                             val idToken = task.result!!.token
                             val intent = Intent(this, HomeActivity::class.java)
                             intent.putExtra("token", idToken)
-                            val intent1 = Intent(this, EstimoteActivity::class.java)
-                            intent1.putExtra("token", idToken)
-                            intent1.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
                             startActivity(intent)
-                            startActivity(intent1)
                         } else {
                             task.exception
                         }

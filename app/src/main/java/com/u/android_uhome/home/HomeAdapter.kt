@@ -10,13 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.u.android_uhome.R
 import kotlinx.android.synthetic.main.item.view.*
 
-class HomeAdapter(private val devices: List<HomeModel.Response>): RecyclerView.Adapter<HomeAdapter.ViewHolder>()  {
+class HomeAdapter(private val devices: List<HomeModel.Response>) :
+    RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemLayoutView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item, null)
-        itemLayoutView.layoutParams = RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        itemLayoutView.layoutParams = RecyclerView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
 
         return ViewHolder(itemLayoutView)
     }

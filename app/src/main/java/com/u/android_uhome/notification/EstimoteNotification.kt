@@ -11,17 +11,14 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.estimote.proximity_sdk.api.ProximityObserverBuilder
 import com.estimote.proximity_sdk.api.ProximityZoneBuilder
-import com.u.android_uhome.estimote.EstimoteActivity
 import com.u.android_uhome.estimote.EstimoteApplication
 import com.u.android_uhome.estimote.EstimoteService
+import com.u.android_uhome.home.HomeActivity
 
 class EstimoteNotification(private val context: Context) {
 
     private val notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    private val helloNotification = buildNotification("Hello", "You're near your beacon")
-    private val goodbyeNotification =
-        buildNotification("Bye bye", "You've left the proximity of your beacon")
 
     lateinit var service: EstimoteService
 
@@ -40,7 +37,7 @@ class EstimoteNotification(private val context: Context) {
             .setContentIntent(
                 PendingIntent.getActivity(
                     context, 0,
-                    Intent(context, EstimoteActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT
+                    Intent(context, HomeActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT
                 )
             )
             .setPriority(NotificationCompat.PRIORITY_HIGH)
