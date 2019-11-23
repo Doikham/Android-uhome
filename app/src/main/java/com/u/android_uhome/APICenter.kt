@@ -15,8 +15,8 @@ interface APICenter {
     @POST("/api/device/get")
     fun getDeviceList(@Body request: HomeModel.Request): Call<List<HomeModel.Response>>
 
-    @POST("/api/toggleswitch")
-    fun toggleSwitch(@Body request: HomeModel.RequestToggle): Call<HomeModel.ResponseToggle>
+    @POST("/switchLight")
+    fun toggleSwitch(@Body request: HomeModel.RequestSwitchLight): Call<HomeModel.ResponseSwitchLight>
 
     @POST("/api/starttimer")
     fun startTimer(@Body request: HomeModel.Request): Call<HomeModel.ResponseStartTimer>

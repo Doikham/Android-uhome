@@ -20,8 +20,6 @@ class EstimoteNotification(private val context: Context) {
     private val notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    private lateinit var service: EstimoteService
-
     private fun buildNotification(title: String, text: String): Notification {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(
@@ -46,6 +44,7 @@ class EstimoteNotification(private val context: Context) {
 
     fun startObserver(token: String) {
         val notificationId = 1
+        val service = EstimoteService()
 
         val proximityObserver =
             ProximityObserverBuilder(context, (context as EstimoteApplication).cloudCredentials)
@@ -65,12 +64,11 @@ class EstimoteNotification(private val context: Context) {
             .onEnter { proximityContext ->
                 val room = proximityContext.attachments["room"]
                 Log.d("app", "Welcome to $room")
-                if(room.toString() == "restroom")
-                    service.callStartTimer(token)
                 notificationManager.notify(
                     notificationId,
                     buildNotification("Hey!", "You have entered the $room")
                 )
+                service.callStartTimer(token)
             }
             .onExit {
                 Log.d("app", "Stop timer")
@@ -78,6 +76,8 @@ class EstimoteNotification(private val context: Context) {
                     notificationId,
                     buildNotification("Bye!", "You have exited the room")
                 )
+//                val service = EstimoteService()
+//                service.callStopTimer(token)
             }
             .onContextChange { context ->
                 val rooms = ArrayList<String>()

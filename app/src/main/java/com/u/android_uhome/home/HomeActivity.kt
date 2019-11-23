@@ -48,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
                 call: Call<List<HomeModel.Response>>?,
                 response: Response<List<HomeModel.Response>>?
             ) {
-                setAdapterData(response?.body())
+                setAdapterData(response?.body(), tokenId)
             }
 
             override fun onFailure(call: Call<List<HomeModel.Response>>?, throwable: Throwable?) {
@@ -79,7 +79,7 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    fun setAdapterData(devices: List<HomeModel.Response>?) {
-        deviceList.adapter = HomeAdapter(devices!!)
+    fun setAdapterData(devices: List<HomeModel.Response>?, token: String) {
+        deviceList.adapter = HomeAdapter(devices!!,token)
     }
 }

@@ -1,6 +1,7 @@
 package com.u.android_uhome.home
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.u.android_uhome.R
 import kotlinx.android.synthetic.main.item.view.*
 
-class HomeAdapter(private val devices: List<HomeModel.Response>) :
+class HomeAdapter(private val devices: List<HomeModel.Response>, private val token: String) :
     RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     @SuppressLint("InflateParams")
@@ -35,6 +36,11 @@ class HomeAdapter(private val devices: List<HomeModel.Response>) :
         holder.userId.text = devices[position].userId
         holder.deviceId.text = devices[position].deviceId
         holder.on.isChecked = devices[position].on
+        holder.on.setOnCheckedChangeListener { _, _ ->
+            val service = HomeService()
+            service.callToggleSwitch(token, devices[position].deviceId)
+            Log.d("app","$service")
+        }
     }
 
     class ViewHolder(itemLayoutView: View) : RecyclerView.ViewHolder(itemLayoutView) {

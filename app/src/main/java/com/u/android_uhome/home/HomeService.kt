@@ -1,6 +1,9 @@
 package com.u.android_uhome.home
 
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.u.android_uhome.APICenter
+import com.u.android_uhome.R
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,19 +17,22 @@ class HomeService {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun callToggleSwitch(token: String, deviceId: String, currentStatus: String) {
+    fun callToggleSwitch(token: String, deviceId: String) {
         var service = retrofit.create(APICenter::class.java)
-        val request = HomeModel.RequestToggle(token, deviceId, currentStatus)
+        val request = HomeModel.RequestSwitchLight("1111", "4")
         val call = service.toggleSwitch(request)
-        call.enqueue(object : Callback<HomeModel.ResponseToggle> {
+        call.enqueue(object : Callback<HomeModel.ResponseSwitchLight> {
             override fun onResponse(
-                call: Call<HomeModel.ResponseToggle>?,
-                response: Response<HomeModel.ResponseToggle>?
+                call: Call<HomeModel.ResponseSwitchLight>?,
+                response: Response<HomeModel.ResponseSwitchLight>?
             ) {
+                Log.d("app", response?.body().toString())
             }
 
-            override fun onFailure(call: Call<HomeModel.ResponseToggle>?, throwable: Throwable?) {
-
+            override fun onFailure(
+                call: Call<HomeModel.ResponseSwitchLight>?,
+                throwable: Throwable?
+            ) {
             }
         })
     }

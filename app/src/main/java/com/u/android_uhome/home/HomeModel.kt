@@ -16,10 +16,13 @@ class HomeModel {
         @SerializedName("idToken") val token: String
     )
 
-    data class RequestToggle(
+    data class RequestSwitchLight(
         @SerializedName("idToken") val token: String,
-        @SerializedName("did") val deviceId: String,
-        @SerializedName("current_status") val currentStatus: String
+        @SerializedName("LightID") val deviceId: String
+    )
+
+    data class ResponseSwitchLight(
+        @SerializedName("message") val message: String
     )
 
     data class ResponseToggle(
