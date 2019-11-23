@@ -78,6 +78,7 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
                                 val idToken = task.result!!.token
                                 val intent = Intent(this, HomeActivity::class.java)
                                 intent.putExtra("token", idToken)
+                                Log.d("app","$idToken")
                                 startActivity(intent)
                             } else {
                                 task.exception

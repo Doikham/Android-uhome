@@ -18,6 +18,9 @@ interface APICenter {
     @POST("/api/toggleswitch")
     fun toggleSwitch(@Body request: HomeModel.RequestToggle): Call<HomeModel.ResponseToggle>
 
-    @POST("/api/toggleswitch")
+    @POST("/api/starttimer")
     fun startTimer(@Body request: HomeModel.Request): Call<HomeModel.ResponseStartTimer>
+
+    @POST("/api/stoptimer")
+    fun stopTimer(@Body request: HomeModel.Request): Call<HomeModel.ResponseStartTimer>
 }

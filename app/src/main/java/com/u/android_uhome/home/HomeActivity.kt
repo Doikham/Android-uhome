@@ -80,6 +80,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun setAdapterData(devices: List<HomeModel.Response>?) {
-        deviceList.adapter = devices?.let { HomeAdapter(it) }
+        deviceList.adapter = HomeAdapter(devices!!)
     }
 }

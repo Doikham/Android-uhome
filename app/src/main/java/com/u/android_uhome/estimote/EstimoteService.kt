@@ -35,7 +35,7 @@ class EstimoteService {
                 call: Call<HomeModel.ResponseStartTimer>?,
                 throwable: Throwable?
             ) {
-
+                Toast.makeText(home, "Can't start timer", Toast.LENGTH_LONG).show()
             }
         })
     }

@@ -28,10 +28,10 @@ class HomeModel {
     )
 
     data class ResponseStartTimer(
-        @SerializedName("_id") val deviceId: String,
         @SerializedName("uid") val userId: String,
-        @SerializedName("name") val deviceName: String,
-        @SerializedName("status") val status: String,
-        @SerializedName("on") val on: Boolean
+        @SerializedName("time") val time: Int,
+        @SerializedName("current") val current: Boolean,
+        @SerializedName("_id") val id: String
     )
+
 }

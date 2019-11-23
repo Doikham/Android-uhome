@@ -16,7 +16,7 @@ class HomeAdapter(private val devices: List<HomeModel.Response>) :
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemLayoutView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item, null)
+            .inflate(R.layout.item, parent,false)
         itemLayoutView.layoutParams = RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
