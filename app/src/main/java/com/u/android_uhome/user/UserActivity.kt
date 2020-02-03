@@ -1,11 +1,11 @@
 package com.u.android_uhome.user
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.annotation.NonNull
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignIn.*
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -31,7 +31,6 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
 
         signInButton.setOnClickListener(this)
         signOutButton.setOnClickListener(this)
-        disconnectButton.setOnClickListener(this)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.token))
@@ -69,6 +68,7 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    val acct = getLastSignedInAccount(this)
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
                     updateUI(user)
@@ -78,7 +78,9 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
                                 val idToken = task.result!!.token
                                 val intent = Intent(this, HomeActivity::class.java)
                                 intent.putExtra("token", idToken)
+                                intent.putExtra("googleAccount", acct)
                                 Log.d("app","$idToken")
+                                Log.d("app", acct?.displayName)
                                 startActivity(intent)
                             } else {
                                 task.exception
@@ -130,7 +132,6 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         when (i) {
             R.id.signInButton -> signIn()
             R.id.signOutButton -> signOut()
-            R.id.disconnectButton -> revokeAccess()
         }
     }
 

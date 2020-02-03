@@ -1,9 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".room.RoomActivity">
+    tools:context=".room.RoomActivity"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp">
+
+            <Button
+                android:id="@+id/optionBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Record"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/grey_100">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="uHome Status: "
+            tools:ignore="HardcodedText"
+            android:layout_marginEnd="10dp"
+            />
+
+        <TextView
+            android:id="@+id/serverStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connected"
+            tools:ignore="HardcodedText"
+            android:layout_marginEnd="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beacon Status: "
+            tools:ignore="HardcodedText"
+            android:layout_marginEnd="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connected"
+            tools:ignore="HardcodedText"
+            />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/roomList"
+        android:layout_width="match_parent"
+        android:layout_height="339dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:scrollbars="vertical"
+        />
+
+</LinearLayout>

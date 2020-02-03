@@ -44,8 +44,7 @@ class EstimoteNotification(private val context: Context) {
 
     fun startObserver(token: String) {
         val notificationId = 1
-        val service = EstimoteService()
-
+        var id = ""
         val proximityObserver =
             ProximityObserverBuilder(context, (context as EstimoteApplication).cloudCredentials)
                 .withBalancedPowerMode()
@@ -68,16 +67,19 @@ class EstimoteNotification(private val context: Context) {
                     notificationId,
                     buildNotification("Hey!", "You have entered the $room")
                 )
-                service.callStartTimer(token)
+//                if (room == "restroom") {
+                    val service = EstimoteService()
+                    id = service.callStartTimer(token)!!
+//                    Log.d("app", service.callStartTimer(token).toString())
+//                }
             }
             .onExit {
-                Log.d("app", "Stop timer")
                 notificationManager.notify(
                     notificationId,
                     buildNotification("Bye!", "You have exited the room")
                 )
-//                val service = EstimoteService()
-//                service.callStopTimer(token)
+                val service = EstimoteService()
+                service.callStopTimer(token, id)
             }
             .onContextChange { context ->
                 val rooms = ArrayList<String>()

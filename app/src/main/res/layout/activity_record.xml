@@ -6,4 +6,62 @@
     android:layout_height="match_parent"
     tools:context=".record.RecordActivity">
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:id="@+id/livingRoom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/livingText"
+                android:text="Living Room"
+                />
+
+            <TextView
+                android:id="@+id/livingUsage"
+                android:text="0.0.0"
+                />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/restRoom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/restText"
+                android:text="Restroom"
+                />
+
+            <TextView
+                android:id="@+id/restUsage"
+                android:text="0.0.0"
+                />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/bedRoom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/bedText"
+                android:text="Bedroom"
+                />
+
+            <TextView
+                android:id="@+id/bedUsage"
+                android:text="0.0.0"
+                />
+
+        </TableRow>
+    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,11 +5,13 @@
     <string name="check">Check</string>
     <string name="device_name">Device Name</string>
     <string name="device_status">Device Status</string>
+    <string name="home_id">Home ID</string>
+    <string name="home_name">Home Name</string>
     <string name="user_id">user_id</string>
     <string name="device_id">device_id</string>
     <string name="app_name">uHome</string>
     <string name="token">514062511683-g99h027n07ua3egp3dhnhb9pvbqrces2.apps.googleusercontent.com</string>
-    <string name="baseUrl">http://ec2-18-139-110-142.ap-southeast-1.compute.amazonaws.com:3000</string>
+    <string name="baseUrl">http://ec2-18-141-56-39.ap-southeast-1.compute.amazonaws.com:3000</string>
     <string name="label_google_sign_in">Firebase + Google Sign In</string>
     <string name="desc_google_sign_in">Use a Google Sign In credential to authenticate with Firebase.</string>
 
@@ -101,4 +103,7 @@
 
     <string name="custom_auth_signin_status_user">User ID: %s</string>
     <string name="custom_auth_signin_status_failed">Error: sign in failed</string>
+    <string name="room_id">Room Id</string>
+    <string name="room_name">Room Name</string>
+    <string name="room_type">Room Type</string>
 </resources>

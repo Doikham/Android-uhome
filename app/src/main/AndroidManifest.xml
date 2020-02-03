@@ -15,9 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".home.HomeActivity">
+        <activity android:name=".light.LightActivity">
 
         </activity>
+        <activity android:name=".device.DeviceActivity" />
+        <activity android:name=".room.RoomActivity" />
+        <activity android:name=".record.RecordActivity" />
+        <activity android:name=".profile.ProfileActivity" />
+        <activity android:name=".home.HomeActivity" />
         <activity android:name=".user.UserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +31,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+
+        <service
+            android:name=".service.FirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".service.FirebaseInstanceService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

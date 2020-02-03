@@ -1,6 +1,7 @@
 package com.u.android_uhome
 
 import com.u.android_uhome.home.HomeModel
+import com.u.android_uhome.room.RoomModel
 import io.reactivex.Observable
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -22,5 +23,14 @@ interface APICenter {
     fun startTimer(@Body request: HomeModel.Request): Call<HomeModel.ResponseStartTimer>
 
     @POST("/api/stoptimer")
-    fun stopTimer(@Body request: HomeModel.Request): Call<HomeModel.ResponseStartTimer>
+    fun stopTimer(@Body request: HomeModel.RequestStopTimer): Call<HomeModel.ResponseStopTimer>
+
+    @GET("/status")
+    fun getServerStatus(): Call<HomeModel.ResponseServerStatus>
+
+    @POST("/user/getHome")
+    fun getHome(@Body request: HomeModel.Request): Call<HomeModel.ResponseHomeMessage>
+
+    @POST("/getRoom")
+    fun getRoom(@Body request: RoomModel.Request): Call<RoomModel.ResponseMessage>
 }
