@@ -1,8 +1,10 @@
 package com.u.android_uhome.estimote
 
 import android.app.Application
+import android.util.Log
+import com.estimote.internal_plugins_api.scanning.BluetoothScanner
 import com.estimote.proximity_sdk.api.EstimoteCloudCredentials
-import com.u.android_uhome.notification.EstimoteNotification
+import com.estimote.scanning_plugin.api.EstimoteBluetoothScannerFactory
 
 class EstimoteApplication : Application() {
 
@@ -12,7 +14,16 @@ class EstimoteApplication : Application() {
     )
 
     fun enableBeaconNotifications(token: String) {
-        val notificationsManager = EstimoteNotification(this)
+        val notificationsManager =
+            EstimoteNotification(this)
         notificationsManager.startObserver(token)
+    }
+
+    fun scan(bluetoothScanner: BluetoothScanner){
+        bluetoothScanner .estimoteNearableScan() .withOnPacketFoundAction {
+            Log.d("NEARABLE", "Got NEARABLE packet: $it")
+        } .withOnScanErrorAction {
+            Log.e("NEARABLE", "NEARABLE scan failed: $it")
+        } .start()
     }
 }

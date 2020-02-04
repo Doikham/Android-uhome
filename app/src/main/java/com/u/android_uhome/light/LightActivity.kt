@@ -20,55 +20,55 @@ class LightActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_light)
 
-            val context: Context = this
-            ColorPickerDialogBuilder
-                .with(context)
-//                .setTitle(R.string.color_dialog_title)
-                .initialColor(-0x1)
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                .density(12)
-                .setOnColorChangedListener(OnColorChangedListener { selectedColor ->
-                    // Handle on color change
-                    Log.d(
-                        "ColorPicker",
-                        "onColorChanged: 0x" + Integer.toHexString(selectedColor)
-                    )
-                })
-                .setOnColorSelectedListener(OnColorSelectedListener { selectedColor ->
-                    Toast.makeText(this,
-                        "onColorSelected: 0x" + Integer.toHexString(
-                            selectedColor
-                        ),Toast.LENGTH_SHORT
-                    ).show()
-                })
-                .setPositiveButton("ok",
-                    ColorPickerClickListener { dialog, selectedColor, allColors ->
-//                        changeBackgroundColor(selectedColor)
-                        if (allColors != null) {
-                            var sb: StringBuilder? = null
-                            for (color in allColors) {
-                                if (color == null) continue
-                                if (sb == null) sb = StringBuilder("Color List:")
-                                sb.append("\r\n#" + Integer.toHexString(color).toUpperCase())
-                            }
-                            if (sb != null) Toast.makeText(
-                                applicationContext,
-                                sb.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    })
-                .setNegativeButton("cancel",
-                    DialogInterface.OnClickListener { dialog, which -> })
-                .showColorEdit(true)
-                .setColorEditTextColor(
-                    ContextCompat.getColor(
-                        this,
-                        android.R.color.holo_blue_bright
-                    )
-                )
-                .build()
-                .show()
+//            val context: Context = this
+//            ColorPickerDialogBuilder
+//                .with(context)
+////                .setTitle(R.string.color_dialog_title)
+//                .initialColor(-0x1)
+//                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+//                .density(12)
+//                .setOnColorChangedListener(OnColorChangedListener { selectedColor ->
+//                    // Handle on color change
+//                    Log.d(
+//                        "ColorPicker",
+//                        "onColorChanged: 0x" + Integer.toHexString(selectedColor)
+//                    )
+//                })
+//                .setOnColorSelectedListener(OnColorSelectedListener { selectedColor ->
+//                    Toast.makeText(this,
+//                        "onColorSelected: 0x" + Integer.toHexString(
+//                            selectedColor
+//                        ),Toast.LENGTH_SHORT
+//                    ).show()
+//                })
+//                .setPositiveButton("ok",
+//                    ColorPickerClickListener { dialog, selectedColor, allColors ->
+////                        changeBackgroundColor(selectedColor)
+//                        if (allColors != null) {
+//                            var sb: StringBuilder? = null
+//                            for (color in allColors) {
+//                                if (color == null) continue
+//                                if (sb == null) sb = StringBuilder("Color List:")
+//                                sb.append("\r\n#" + Integer.toHexString(color).toUpperCase())
+//                            }
+//                            if (sb != null) Toast.makeText(
+//                                applicationContext,
+//                                sb.toString(),
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
+//                    })
+//                .setNegativeButton("cancel",
+//                    DialogInterface.OnClickListener { dialog, which -> })
+//                .showColorEdit(true)
+//                .setColorEditTextColor(
+//                    ContextCompat.getColor(
+//                        this,
+//                        android.R.color.holo_blue_bright
+//                    )
+//                )
+//                .build()
+//                .show()
 
     }
 }

@@ -1,8 +1,6 @@
 package com.u.android_uhome.utils
 
-import com.u.android_uhome.estimote.EstimoteService
 import com.u.android_uhome.home.HomeModel
-import com.u.android_uhome.notification.EstimoteNotification
 
 class Timer {
 

@@ -1,5 +1,6 @@
 package com.u.android_uhome
 
+import com.u.android_uhome.device.DeviceModel
 import com.u.android_uhome.home.HomeModel
 import com.u.android_uhome.room.RoomModel
 import io.reactivex.Observable
@@ -33,4 +34,7 @@ interface APICenter {
 
     @POST("/getRoom")
     fun getRoom(@Body request: RoomModel.Request): Call<RoomModel.ResponseMessage>
+
+    @POST("/user/getDevices")
+    fun getDevices(@Body request: DeviceModel.Request): Call<DeviceModel.ResponseMessage>
 }

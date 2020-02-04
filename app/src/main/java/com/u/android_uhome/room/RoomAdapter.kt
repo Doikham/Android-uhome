@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.u.android_uhome.R
+import com.u.android_uhome.device.DeviceActivity
 import com.u.android_uhome.home.HomeAdapter
 import kotlinx.android.synthetic.main.room.view.*
 
@@ -26,11 +27,11 @@ class RoomAdapter(private val rooms: List<RoomModel.ResponseRoomList>, private v
         return ViewHolder(itemLayoutView)
     }
 
-    private fun onClick(v: View?, homeId: Int) {
-//        val intent = Intent(v!!.context, RoomActivity::class.java)
-//        intent.putExtra("homeId", homeId)
-//        intent.putExtra("tokenId", token)
-//        v.context.startActivity(intent)
+    private fun onClick(v: View?, roomId: Int) {
+        val intent = Intent(v!!.context, DeviceActivity::class.java)
+        intent.putExtra("roomId", roomId)
+        intent.putExtra("tokenId", token)
+        v.context.startActivity(intent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

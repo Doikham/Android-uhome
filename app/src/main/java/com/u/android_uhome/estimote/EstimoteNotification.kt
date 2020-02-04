@@ -1,4 +1,4 @@
-package com.u.android_uhome.notification
+package com.u.android_uhome.estimote
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -11,8 +11,6 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.estimote.proximity_sdk.api.ProximityObserverBuilder
 import com.estimote.proximity_sdk.api.ProximityZoneBuilder
-import com.u.android_uhome.estimote.EstimoteApplication
-import com.u.android_uhome.estimote.EstimoteService
 import com.u.android_uhome.home.HomeActivity
 
 class EstimoteNotification(private val context: Context) {

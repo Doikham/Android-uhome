@@ -2,6 +2,7 @@ package com.u.android_uhome.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
+import com.estimote.scanning_plugin.api.EstimoteBluetoothScannerFactory
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.iid.FirebaseInstanceId
 import com.u.android_uhome.APICenter
@@ -28,6 +30,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var interactor: HomeInteractor
     lateinit var router: HomeRouter
     lateinit var model: HomeModel
+    private lateinit var mp: MediaPlayer
 
     @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +73,10 @@ class HomeActivity : AppCompatActivity() {
                 setAdapterData(response?.body()?.message, tokenId)
             }
 
-            override fun onFailure(call: Call<HomeModel.ResponseHomeMessage>?, throwable: Throwable?) {
+            override fun onFailure(
+                call: Call<HomeModel.ResponseHomeMessage>?,
+                throwable: Throwable?
+            ) {
                 Toast.makeText(
                     this@HomeActivity, "Unable to load homes",
                     Toast.LENGTH_SHORT
@@ -95,7 +101,11 @@ class HomeActivity : AppCompatActivity() {
             }
         })
 
+        // Starting estimote
         val app = application as EstimoteApplication
+        val bluetoothScanner = EstimoteBluetoothScannerFactory(this).getSimpleScanner()
+
+        app.scan(bluetoothScanner)
 
         RequirementsWizardFactory
             .createEstimoteRequirementsWizard()
@@ -111,6 +121,12 @@ class HomeActivity : AppCompatActivity() {
                 onError = { throwable ->
                     Log.e("app", "requirements error: $throwable")
                 })
+
+        // Start phone ring
+//        mp = MediaPlayer.create(this, R.raw.phone_ring)
+//        mp.start()
+//        mp.isLooping = false
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -119,6 +135,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun setAdapterData(homes: List<HomeModel.ResponseHome>?, token: String) {
-        homeList.adapter = HomeAdapter(homes!!,token)
+        homeList.adapter = HomeAdapter(homes!!, token)
     }
+
+//    override fun onDestroy () {
+//        super.onDestroy ()
+//        mp.release ()
+//    }
 }

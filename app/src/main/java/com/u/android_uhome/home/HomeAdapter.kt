@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.u.android_uhome.R
 import com.u.android_uhome.room.RoomActivity
 import kotlinx.android.synthetic.main.home.view.*
-import kotlinx.android.synthetic.main.item.view.*
 
 class HomeAdapter(private val homes: List<HomeModel.ResponseHome>, private val token: String) :
     RecyclerView.Adapter<HomeAdapter.ViewHolder>() {

@@ -4,12 +4,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.u.android_uhome.APICenter
 import com.u.android_uhome.R
 import com.u.android_uhome.home.HomeAdapter
 import com.u.android_uhome.home.HomeModel
 import com.u.android_uhome.record.RecordActivity
+import kotlinx.android.synthetic.main.activity_device.*
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_home.optionBtn
+import kotlinx.android.synthetic.main.activity_home.toolbar1
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,47 +27,54 @@ class DeviceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device)
 
-//        val actionbar = supportActionBar
-//        actionbar?.setDisplayHomeAsUpEnabled(true)
-//
-//        val toolbar = toolbar1
-//        setSupportActionBar(toolbar)
-//        optionBtn.setOnClickListener {
-//            val intent = Intent(this, RecordActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl(getString(R.string.baseUrl))
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//
-//        var service = retrofit.create(APICenter::class.java)
-//        val request = HomeModel.Request(tokenId!!)
-//        val call = service.getDeviceList(request)
-//        call.enqueue(object : Callback<List<HomeModel.Response>> {
-//            override fun onResponse(
-//                call: Call<List<HomeModel.Response>>?,
-//                response: Response<List<HomeModel.Response>>?
-//            ) {
-//                setAdapterData(response?.body(), tokenId)
-//            }
-//
-//            override fun onFailure(call: Call<List<HomeModel.Response>>?, throwable: Throwable?) {
-//                Toast.makeText(
-//                    this@HomeActivity, "Unable to load devices",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        })
+        val actionbar = supportActionBar
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+
+        val toolbar = toolbar1
+        setSupportActionBar(toolbar)
+        optionBtn.setOnClickListener {
+            val intent = Intent(this, RecordActivity::class.java)
+            startActivity(intent)
+        }
+
+        val bundle = intent.extras
+        val tokenId = bundle?.getString("tokenId")
+        val roomId = bundle?.getInt("roomId").toString()
+
+        deviceList.layoutManager = LinearLayoutManager(this)
+        deviceList.itemAnimator = DefaultItemAnimator()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(getString(R.string.baseUrl))
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        var service = retrofit.create(APICenter::class.java)
+        val request = DeviceModel.Request(tokenId!!, roomId)
+        val call = service.getDevices(request)
+        call.enqueue(object : Callback<DeviceModel.ResponseMessage> {
+            override fun onResponse(
+                call: Call<DeviceModel.ResponseMessage>?,
+                response: Response<DeviceModel.ResponseMessage>?
+            ) {
+                setAdapterData(response?.body()?.message, tokenId)
+            }
+
+            override fun onFailure(call: Call<DeviceModel.ResponseMessage>?, throwable: Throwable?) {
+                Toast.makeText(
+                    this@DeviceActivity, "Unable to load devices",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
     }
 
-//    override fun onSupportNavigateUp(): Boolean {
-//        onBackPressed()
-//        return true
-//    }
-//
-//    fun setAdapterData(devices: List<HomeModel.Response>?, token: String) {
-//        homeList.adapter = DeviceAdapter(devices!!,token)
-//    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    fun setAdapterData(devices: List<DeviceModel.ResponseDevicesList>?, token: String) {
+        deviceList.adapter = DeviceAdapter(devices!!,token)
+    }
 }

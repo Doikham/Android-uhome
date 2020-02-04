@@ -15,9 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".light.LightActivity">
-
-        </activity>
+        <activity android:name=".estimote.EstimoteActivity"></activity>
+        <activity android:name=".light.LightActivity"></activity>
         <activity android:name=".device.DeviceActivity" />
         <activity android:name=".room.RoomActivity" />
         <activity android:name=".record.RecordActivity" />

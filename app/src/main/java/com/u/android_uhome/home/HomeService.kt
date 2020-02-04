@@ -18,7 +18,7 @@ class HomeService {
 
     fun callToggleSwitch(token: String, deviceId: String){
         var service = retrofit.create(APICenter::class.java)
-        val request = HomeModel.RequestSwitchLight(token, "4")
+        val request = HomeModel.RequestSwitchLight(token, deviceId)
         val call = service.toggleSwitch(request)
 //        try {
 //            val response: Response<HomeModel.ResponseSwitchLight> = call.execute()
