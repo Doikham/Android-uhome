@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".estimote.EstimoteApplication"
@@ -15,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".estimote.EstimoteActivity"></activity>
+        <activity android:name=".estimote.EstimoteActivity">
+
+        </activity>
         <activity android:name=".light.LightActivity"></activity>
         <activity android:name=".device.DeviceActivity" />
         <activity android:name=".room.RoomActivity" />
@@ -33,12 +36,14 @@
 
         <service
             android:name=".service.FirebaseMessagingService"
-            android:exported="false">
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".service.FirebaseInstanceService">
+        <service android:name=".service.FirebaseInstanceService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>

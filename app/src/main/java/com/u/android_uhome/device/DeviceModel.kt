@@ -15,6 +15,18 @@ class DeviceModel {
 
     data class ResponseDevicesList(
         @SerializedName("DeviceID") val deviceId: Int,
-        @SerializedName("Name") val deviceName: String
+        @SerializedName("Name") val deviceName: String,
+        @SerializedName("on") val on: Boolean
+    )
+
+    data class RequestChangeColor(
+        @SerializedName("idToken") val token: String,
+        @SerializedName("DeviceID") val deviceId: String,
+        @SerializedName("Hex") val hexValue: String,
+        @SerializedName("HomeID") val homeId: String
+    )
+
+    data class Response(
+        @SerializedName("message") val message: String
     )
 }

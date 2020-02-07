@@ -13,13 +13,17 @@ import com.u.android_uhome.device.DeviceActivity
 import com.u.android_uhome.home.HomeAdapter
 import kotlinx.android.synthetic.main.room.view.*
 
-class RoomAdapter(private val rooms: List<RoomModel.ResponseRoomList>, private val token: String) :
+class RoomAdapter(
+    private val rooms: List<RoomModel.ResponseRoomList>,
+    private val token: String,
+    private val homeId: String
+) :
     RecyclerView.Adapter<RoomAdapter.ViewHolder>() {
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemLayoutView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.room, parent,false)
+            .inflate(R.layout.room, parent, false)
         itemLayoutView.layoutParams = RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -31,6 +35,7 @@ class RoomAdapter(private val rooms: List<RoomModel.ResponseRoomList>, private v
         val intent = Intent(v!!.context, DeviceActivity::class.java)
         intent.putExtra("roomId", roomId)
         intent.putExtra("tokenId", token)
+        intent.putExtra("homeId", homeId)
         v.context.startActivity(intent)
     }
 
@@ -39,7 +44,7 @@ class RoomAdapter(private val rooms: List<RoomModel.ResponseRoomList>, private v
         holder.name.text = rooms[position].roomName
         holder.type.text = rooms[position].roomType
         holder.itemView.setOnClickListener {
-            Log.d("info",rooms[position].roomId.toString())
+            Log.d("info", rooms[position].roomId.toString())
             onClick(holder.itemView, rooms[position].roomId)
         }
     }

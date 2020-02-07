@@ -19,11 +19,9 @@ class EstimoteApplication : Application() {
         notificationsManager.startObserver(token)
     }
 
-    fun scan(bluetoothScanner: BluetoothScanner){
-        bluetoothScanner .estimoteNearableScan() .withOnPacketFoundAction {
-            Log.d("NEARABLE", "Got NEARABLE packet: $it")
-        } .withOnScanErrorAction {
-            Log.e("NEARABLE", "NEARABLE scan failed: $it")
-        } .start()
-    }
+//    fun notification(token: String) {
+//        val notificationsManager =
+//            EstimoteNotification(this)
+//        notificationsManager.startBuildNotification(token)
+//    }
 }

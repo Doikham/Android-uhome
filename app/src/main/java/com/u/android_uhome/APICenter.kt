@@ -37,4 +37,7 @@ interface APICenter {
 
     @POST("/user/getDevices")
     fun getDevices(@Body request: DeviceModel.Request): Call<DeviceModel.ResponseMessage>
+
+    @POST("/setLight")
+    fun changeColor(@Body request: DeviceModel.RequestChangeColor): Call<DeviceModel.Response>
 }

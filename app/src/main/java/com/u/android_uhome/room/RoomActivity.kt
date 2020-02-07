@@ -56,7 +56,7 @@ class RoomActivity : AppCompatActivity() {
                 call: Call<RoomModel.ResponseMessage>?,
                 response: Response<RoomModel.ResponseMessage>?
             ) {
-                setAdapterData(response?.body()?.message, tokenId)
+                setAdapterData(response?.body()?.message, tokenId, homeId)
             }
 
             override fun onFailure(call: Call<RoomModel.ResponseMessage>?, throwable: Throwable?) {
@@ -68,7 +68,7 @@ class RoomActivity : AppCompatActivity() {
         })
     }
 
-    fun setAdapterData(rooms: List<RoomModel.ResponseRoomList>?, token: String) {
-        roomList.adapter = RoomAdapter(rooms!!,token)
+    fun setAdapterData(rooms: List<RoomModel.ResponseRoomList>?, token: String, homeId: String) {
+        roomList.adapter = RoomAdapter(rooms!!, token, homeId)
     }
 }

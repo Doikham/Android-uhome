@@ -40,6 +40,7 @@ class DeviceActivity : AppCompatActivity() {
         val bundle = intent.extras
         val tokenId = bundle?.getString("tokenId")
         val roomId = bundle?.getInt("roomId").toString()
+        val homeId = bundle?.getString("homeId")
 
         deviceList.layoutManager = LinearLayoutManager(this)
         deviceList.itemAnimator = DefaultItemAnimator()
@@ -57,10 +58,13 @@ class DeviceActivity : AppCompatActivity() {
                 call: Call<DeviceModel.ResponseMessage>?,
                 response: Response<DeviceModel.ResponseMessage>?
             ) {
-                setAdapterData(response?.body()?.message, tokenId)
+                setAdapterData(response?.body()?.message, tokenId, homeId!!)
             }
 
-            override fun onFailure(call: Call<DeviceModel.ResponseMessage>?, throwable: Throwable?) {
+            override fun onFailure(
+                call: Call<DeviceModel.ResponseMessage>?,
+                throwable: Throwable?
+            ) {
                 Toast.makeText(
                     this@DeviceActivity, "Unable to load devices",
                     Toast.LENGTH_SHORT
@@ -74,7 +78,11 @@ class DeviceActivity : AppCompatActivity() {
         return true
     }
 
-    fun setAdapterData(devices: List<DeviceModel.ResponseDevicesList>?, token: String) {
-        deviceList.adapter = DeviceAdapter(devices!!,token)
+    fun setAdapterData(
+        devices: List<DeviceModel.ResponseDevicesList>?,
+        token: String,
+        homeId: String
+    ) {
+        deviceList.adapter = DeviceAdapter(devices!!, token, homeId)
     }
 }

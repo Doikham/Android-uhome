@@ -16,9 +16,9 @@ class HomeService {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun callToggleSwitch(token: String, deviceId: String){
+    fun callToggleSwitch(token: String, deviceId: String, homeId: String) {
         var service = retrofit.create(APICenter::class.java)
-        val request = HomeModel.RequestSwitchLight(token, deviceId)
+        val request = HomeModel.RequestSwitchLight(token, deviceId, homeId)
         val call = service.toggleSwitch(request)
 //        try {
 //            val response: Response<HomeModel.ResponseSwitchLight> = call.execute()

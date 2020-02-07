@@ -21,7 +21,8 @@ class HomeModel {
 
     data class RequestSwitchLight(
         @SerializedName("idToken") val token: String,
-        @SerializedName("DeviceID") val deviceId: String
+        @SerializedName("DeviceID") val deviceId: String,
+        @SerializedName("HomeID") val homeId: String
     )
 
     data class ResponseSwitchLight(

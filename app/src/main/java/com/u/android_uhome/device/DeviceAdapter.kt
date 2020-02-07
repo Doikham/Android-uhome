@@ -21,13 +21,17 @@ import com.u.android_uhome.R
 import com.u.android_uhome.home.HomeService
 import kotlinx.android.synthetic.main.device.view.*
 
-class DeviceAdapter(private val devices: List<DeviceModel.ResponseDevicesList>, private val token: String) :
+class DeviceAdapter(
+    private val devices: List<DeviceModel.ResponseDevicesList>,
+    private val token: String,
+    private val homeId: String
+) :
     RecyclerView.Adapter<DeviceAdapter.ViewHolder>() {
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemLayoutView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.device, parent,false)
+            .inflate(R.layout.device, parent, false)
         itemLayoutView.layoutParams = RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -40,7 +44,7 @@ class DeviceAdapter(private val devices: List<DeviceModel.ResponseDevicesList>, 
         return devices.size
     }
 
-    private fun onClick(v: View?, roomId: Int) {
+    private fun onClick(v: View?, deviceId: Int) {
         val context: Context = v!!.context
         ColorPickerDialogBuilder
             .with(context)
@@ -63,9 +67,9 @@ class DeviceAdapter(private val devices: List<DeviceModel.ResponseDevicesList>, 
                     ), Toast.LENGTH_SHORT
                 ).show()
             }
-            .setPositiveButton("ok"
-            ) { _, _, allColors ->
-                //                        changeBackgroundColor(selectedColor)
+            .setPositiveButton(
+                "ok"
+            ) { _, selectedColor, allColors ->
                 if (allColors != null) {
                     var sb: StringBuilder? = null
                     for (color in allColors) {
@@ -79,8 +83,17 @@ class DeviceAdapter(private val devices: List<DeviceModel.ResponseDevicesList>, 
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+                val service = DeviceService()
+                Log.d("color", Integer.toHexString(selectedColor))
+                service.callChangeColor(
+                    token,
+                    deviceId.toString(),
+                    "#" + Integer.toHexString(selectedColor),
+                    homeId
+                )
             }
-            .setNegativeButton("cancel"
+            .setNegativeButton(
+                "cancel"
             ) { _, _ -> }
             .showColorEdit(true)
             .setColorEditTextColor(
@@ -96,13 +109,13 @@ class DeviceAdapter(private val devices: List<DeviceModel.ResponseDevicesList>, 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = devices[position].deviceName
         holder.id.text = devices[position].deviceId.toString()
-//        holder.on.isChecked = devices[position].on
+        holder.on.isChecked = devices[position].on
         holder.on.setOnCheckedChangeListener { _, _ ->
             val service = HomeService()
-            service.callToggleSwitch(token, devices[position].deviceId.toString())
+            service.callToggleSwitch(token, devices[position].deviceId.toString(), homeId)
         }
         holder.itemView.setOnClickListener {
-            Log.d("info",devices[position].deviceId.toString())
+            Log.d("info", devices[position].deviceId.toString())
             onClick(holder.itemView, devices[position].deviceId)
         }
     }

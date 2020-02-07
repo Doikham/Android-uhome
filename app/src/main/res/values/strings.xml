@@ -106,4 +106,6 @@
     <string name="room_id">Room Id</string>
     <string name="room_name">Room Name</string>
     <string name="room_type">Room Type</string>
+    <string name="fcm_token">FCM Token: %s</string>
+
 </resources>

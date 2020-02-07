@@ -20,7 +20,7 @@ class HomeAdapter(private val homes: List<HomeModel.ResponseHome>, private val t
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemLayoutView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.home, parent,false)
+            .inflate(R.layout.home, parent, false)
         itemLayoutView.layoutParams = RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -41,7 +41,7 @@ class HomeAdapter(private val homes: List<HomeModel.ResponseHome>, private val t
         holder.id.text = homes[position].homeId.toString()
         holder.name.text = homes[position].homeName
         holder.itemView.setOnClickListener {
-            Log.d("info",homes[position].homeId.toString())
+            Log.d("info", homes[position].homeId.toString())
             onClick(holder.itemView, homes[position].homeId)
         }
     }
