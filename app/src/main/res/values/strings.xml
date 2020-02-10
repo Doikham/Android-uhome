@@ -110,5 +110,8 @@
 
     <string name="estimote_app_id">%s</string>
     <string name="estimote_app_token">%s</string>
+    <string name="choose_your_house_to_use">Choose your house to use</string>
+    <string name="choose_device_to_use">Choose device to use</string>
+    <string name="choose_room_to_use">Choose room to use</string>
 
 </resources>

@@ -32,7 +32,7 @@ interface APICenter {
     @POST("/getRoom")
     fun getRoom(@Body request: RoomModel.Request): Call<RoomModel.ResponseMessage>
 
-    @POST("/user/getDevices")
+    @POST("/user/getDevices/Hue")
     fun getDevices(@Body request: DeviceModel.Request): Call<DeviceModel.ResponseMessage>
 
     @POST("/setLight")

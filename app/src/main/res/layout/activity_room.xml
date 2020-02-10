@@ -15,24 +15,27 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="0dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:gravity="end">
 
             <Button
                 android:id="@+id/optionBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Record"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp"
-                />
+                android:layout_width="57dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_live_help_black_24dp" />
 
-        </RelativeLayout>
+        </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="10dp"
@@ -42,35 +45,9 @@
         android:background="@color/grey_100">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="uHome Status: "
-            tools:ignore="HardcodedText"
-            android:layout_marginEnd="10dp"
-            />
-
-        <TextView
-            android:id="@+id/serverStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Connected"
-            tools:ignore="HardcodedText"
-            android:layout_marginEnd="20dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Beacon Status: "
-            tools:ignore="HardcodedText"
-            android:layout_marginEnd="10dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Connected"
-            tools:ignore="HardcodedText"
+            android:text="@string/choose_room_to_use"
             />
 
     </LinearLayout>
@@ -78,7 +55,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/roomList"
         android:layout_width="match_parent"
-        android:layout_height="339dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
