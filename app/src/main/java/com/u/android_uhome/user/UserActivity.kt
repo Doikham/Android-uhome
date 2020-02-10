@@ -1,12 +1,10 @@
 package com.u.android_uhome.user
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignIn.*
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -18,10 +16,12 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.u.android_uhome.R
 import com.u.android_uhome.home.HomeActivity
+import com.u.android_uhome.service.FirebaseMessagingService
 import kotlinx.android.synthetic.main.activity_user.*
 
 class UserActivity : AppCompatActivity(), View.OnClickListener {
 
+    private val TAG = "MainActivity"
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
@@ -39,13 +39,15 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         googleSignInClient = getClient(this, gso)
         auth = FirebaseAuth.getInstance()
 
-        revokeAccess()
+        startService(Intent(applicationContext, FirebaseMessagingService::class.java))
+
     }
 
     public override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
-        updateUI(currentUser)
+        if (currentUser != null)
+            updateUI(currentUser)
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -68,30 +70,14 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val acct = getLastSignedInAccount(this)
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
                     updateUI(user)
-                    startApplication.setOnClickListener {
-                        auth.currentUser!!.getIdToken(true).addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val idToken = task.result!!.token
-                                val intent = Intent(this, HomeActivity::class.java)
-                                intent.putExtra("token", idToken)
-                                intent.putExtra("googleAccount", acct)
-                                Log.d("app","$idToken")
-                                Log.d("app", acct?.displayName)
-                                startActivity(intent)
-                            } else {
-                                task.exception
-                            }
-                        }
-                    }
                 } else {
-                    // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Snackbar.make(main_layout, "Authentication Failed.", Snackbar.LENGTH_SHORT)
                         .show()
+                    updateUI(null)
                 }
             }
     }
@@ -99,6 +85,7 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
+        googleSignInClient.signOut()
     }
 
     private fun signOut() {
@@ -120,6 +107,19 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
             signInButton.visibility = View.GONE
             signOutAndDisconnect.visibility = View.VISIBLE
             startApplication.visibility = View.VISIBLE
+            startApplication.setOnClickListener {
+                auth.currentUser!!.getIdToken(true).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val idToken = task.result!!.token
+                        val intent = Intent(this, HomeActivity::class.java)
+                        intent.putExtra("token", idToken)
+                        Log.d("app", "$idToken")
+                        startActivity(intent)
+                    } else {
+                        task.exception
+                    }
+                }
+            }
         } else {
             signInButton.visibility = View.VISIBLE
             signOutAndDisconnect.visibility = View.GONE
@@ -128,9 +128,10 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        val i = v.id
-        when (i) {
-            R.id.signInButton -> signIn()
+        when (v.id) {
+            R.id.signInButton -> {
+                signIn()
+            }
             R.id.signOutButton -> signOut()
         }
     }
@@ -139,4 +140,5 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         private const val TAG = "GoogleActivity"
         private const val RC_SIGN_IN = 9001
     }
+
 }

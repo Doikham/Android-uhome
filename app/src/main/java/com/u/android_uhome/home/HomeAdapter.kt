@@ -6,14 +6,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.u.android_uhome.R
 import com.u.android_uhome.room.RoomActivity
 import kotlinx.android.synthetic.main.home.view.*
-import kotlinx.android.synthetic.main.item.view.*
 
 class HomeAdapter(private val homes: List<HomeModel.ResponseHome>, private val token: String) :
     RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
@@ -21,12 +18,11 @@ class HomeAdapter(private val homes: List<HomeModel.ResponseHome>, private val t
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemLayoutView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.home, parent,false)
+            .inflate(R.layout.home, parent, false)
         itemLayoutView.layoutParams = RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-//        itemLayoutView.setOnClickListener(v)
 
         return ViewHolder(itemLayoutView)
     }
@@ -42,7 +38,7 @@ class HomeAdapter(private val homes: List<HomeModel.ResponseHome>, private val t
         holder.id.text = homes[position].homeId.toString()
         holder.name.text = homes[position].homeName
         holder.itemView.setOnClickListener {
-            Log.d("info",homes[position].homeId.toString())
+            Log.d("info", homes[position].homeId.toString())
             onClick(holder.itemView, homes[position].homeId)
         }
     }

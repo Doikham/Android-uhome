@@ -2,7 +2,7 @@ package com.u.android_uhome.estimote
 
 import android.os.StrictMode
 import android.util.Log
-import com.u.android_uhome.APICenter
+import com.u.android_uhome.utils.APICenter
 import com.u.android_uhome.home.HomeModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,23 +32,6 @@ class EstimoteService {
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
-//        call.clone().enqueue(object : Callback<HomeModel.ResponseStartTimer> {
-//            override fun onResponse(
-//                call: Call<HomeModel.ResponseStartTimer>?,
-//                response: Response<HomeModel.ResponseStartTimer>?
-//            ) {
-//                Log.d("app", "Start timer")
-//                val id: String = response!!.body()!!.id
-//
-//            }
-//
-//            override fun onFailure(
-//                call: Call<HomeModel.ResponseStartTimer>?,
-//                throwable: Throwable?
-//            ) {
-//                Log.w("app", "Can not start timer")
-//            }
-//        })
         return null
     }
 

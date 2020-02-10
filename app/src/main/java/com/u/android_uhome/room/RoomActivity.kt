@@ -1,15 +1,19 @@
 package com.u.android_uhome.room
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.u.android_uhome.APICenter
+import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
+import com.u.android_uhome.utils.APICenter
 import com.u.android_uhome.R
+import com.u.android_uhome.estimote.EstimoteApplication
+import com.u.android_uhome.estimote.EstimoteModel
 import com.u.android_uhome.record.RecordActivity
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.optionBtn
 import kotlinx.android.synthetic.main.activity_home.toolbar1
 import kotlinx.android.synthetic.main.activity_room.*
@@ -56,7 +60,7 @@ class RoomActivity : AppCompatActivity() {
                 call: Call<RoomModel.ResponseMessage>?,
                 response: Response<RoomModel.ResponseMessage>?
             ) {
-                setAdapterData(response?.body()?.message, tokenId)
+                setAdapterData(response?.body()?.message, tokenId, homeId)
             }
 
             override fun onFailure(call: Call<RoomModel.ResponseMessage>?, throwable: Throwable?) {
@@ -66,9 +70,52 @@ class RoomActivity : AppCompatActivity() {
                 ).show()
             }
         })
+
+        // Starting estimote
+        val app = application as EstimoteApplication
+
+        val requestEstimoteApp = EstimoteModel.RequestApp(tokenId, homeId)
+        val callEstimoteService = service.getEstimoteApp(requestEstimoteApp)
+        callEstimoteService.enqueue(object : Callback<EstimoteModel.ResponseApp> {
+            override fun onResponse(
+                call: Call<EstimoteModel.ResponseApp>?,
+                response: Response<EstimoteModel.ResponseApp>?
+            ) {
+//                sendAppId(response?.body()?.appId, response?.body()?.appToken)
+//                getString(R.string.estimote_app_id, response?.body()?.appId)
+//                getString(R.string.estimote_app_token, response?.body()?.appToken)
+                val editor =
+                    getSharedPreferences("MyPref", Context.MODE_PRIVATE).edit()
+                editor.putString("app_id", response?.body()?.appId)
+                editor.putString("app_token", response?.body()?.appToken)
+                editor.apply()
+            }
+
+            override fun onFailure(call: Call<EstimoteModel.ResponseApp>?, throwable: Throwable?) {
+                Toast.makeText(
+                    this@RoomActivity, "Unable to load rooms",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+
+        RequirementsWizardFactory
+            .createEstimoteRequirementsWizard()
+            .fulfillRequirements(this,
+                onRequirementsFulfilled = {
+                    Log.d("app", "requirements fulfilled")
+                    app.enableBeaconNotifications(tokenId)
+                },
+                onRequirementsMissing = { requirements ->
+                    Log.e("app", "requirements missing: $requirements")
+                },
+
+                onError = { throwable ->
+                    Log.e("app", "requirements error: $throwable")
+                })
     }
 
-    fun setAdapterData(rooms: List<RoomModel.ResponseRoomList>?, token: String) {
-        roomList.adapter = RoomAdapter(rooms!!,token)
+    fun setAdapterData(rooms: List<RoomModel.ResponseRoomList>?, token: String, homeId: String) {
+        roomList.adapter = RoomAdapter(rooms!!, token, homeId)
     }
 }

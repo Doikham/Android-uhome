@@ -1,8 +1,7 @@
 package com.u.android_uhome.home
 
-import android.os.StrictMode
 import android.util.Log
-import com.u.android_uhome.APICenter
+import com.u.android_uhome.utils.APICenter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,9 +15,9 @@ class HomeService {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun callToggleSwitch(token: String, deviceId: String){
+    fun callToggleSwitch(token: String, deviceId: String, homeId: String) {
         var service = retrofit.create(APICenter::class.java)
-        val request = HomeModel.RequestSwitchLight(token, "4")
+        val request = HomeModel.RequestSwitchLight(token, deviceId, homeId)
         val call = service.toggleSwitch(request)
 //        try {
 //            val response: Response<HomeModel.ResponseSwitchLight> = call.execute()

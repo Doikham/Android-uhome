@@ -1,9 +1,6 @@
 package com.u.android_uhome.home
 
 import com.google.gson.annotations.SerializedName
-import org.springframework.format.annotation.DateTimeFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 class HomeModel {
 
@@ -21,7 +18,8 @@ class HomeModel {
 
     data class RequestSwitchLight(
         @SerializedName("idToken") val token: String,
-        @SerializedName("LightId") val deviceId: String
+        @SerializedName("DeviceID") val deviceId: String,
+        @SerializedName("HomeID") val homeId: String
     )
 
     data class ResponseSwitchLight(
@@ -61,5 +59,14 @@ class HomeModel {
     data class ResponseHome(
         @SerializedName("HomeID") val homeId: Int,
         @SerializedName("Name") val homeName: String
+    )
+
+    data class RequestAddFcm(
+        @SerializedName("idToken") val token: String,
+        @SerializedName("RegisID") val fcmToken: String
+    )
+
+    data class ResponseGeneral(
+        @SerializedName("message") val message: String
     )
 }
