@@ -6,8 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.u.android_uhome.R
@@ -25,7 +23,6 @@ class HomeAdapter(private val homes: List<HomeModel.ResponseHome>, private val t
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-//        itemLayoutView.setOnClickListener(v)
 
         return ViewHolder(itemLayoutView)
     }

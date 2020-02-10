@@ -1,12 +1,9 @@
-package com.u.android_uhome
+package com.u.android_uhome.utils
 
 import com.u.android_uhome.device.DeviceModel
+import com.u.android_uhome.estimote.EstimoteModel
 import com.u.android_uhome.home.HomeModel
 import com.u.android_uhome.room.RoomModel
-import io.reactivex.Observable
-import okhttp3.Request
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -40,4 +37,10 @@ interface APICenter {
 
     @POST("/setLight")
     fun changeColor(@Body request: DeviceModel.RequestChangeColor): Call<DeviceModel.Response>
+
+    @POST("/getEstimoteKey")
+    fun getEstimoteApp(@Body request: EstimoteModel.RequestApp): Call<EstimoteModel.ResponseApp>
+
+    @POST("/notification/addRegis")
+    fun addFcmToken(@Body request: HomeModel.RequestAddFcm): Call<HomeModel.ResponseGeneral>
 }

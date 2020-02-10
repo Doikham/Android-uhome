@@ -1,26 +1,22 @@
 package com.u.android_uhome.home
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Vibrator
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
-import com.estimote.scanning_plugin.api.EstimoteBluetoothScannerFactory
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.iid.FirebaseInstanceId
-import com.u.android_uhome.APICenter
+import com.google.firebase.iid.InstanceIdResult
+import com.u.android_uhome.utils.APICenter
 import com.u.android_uhome.R
-import com.u.android_uhome.estimote.EstimoteApplication
 import com.u.android_uhome.record.RecordActivity
-import com.u.android_uhome.room.RoomActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,16 +26,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class HomeActivity : AppCompatActivity() {
 
-    lateinit var interactor: HomeInteractor
-    lateinit var router: HomeRouter
-    lateinit var model: HomeModel
+    private val TAG = "HomeActivity"
     private lateinit var mp: MediaPlayer
 
     @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-//        HomeConfigure.configure(this)
 
         val actionbar = supportActionBar
         actionbar?.setDisplayHomeAsUpEnabled(true)
@@ -50,8 +43,6 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, RecordActivity::class.java)
             startActivity(intent)
         }
-
-        val tkn: String = FirebaseInstanceId.getInstance().id
 
         val bundle = intent.extras
         val tokenId = bundle?.getString("token")
@@ -64,7 +55,7 @@ class HomeActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        var service = retrofit.create(APICenter::class.java)
+        val service = retrofit.create(APICenter::class.java)
 
         val request = HomeModel.Request(tokenId!!)
         val call = service.getHome(request)
@@ -104,23 +95,21 @@ class HomeActivity : AppCompatActivity() {
             }
         })
 
-        // Starting estimote
-        val app = application as EstimoteApplication
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult?> {
+                override fun onComplete(@NonNull task: Task<InstanceIdResult?>) {
+                    if (!task.isSuccessful) { //To do//
+                        return
+                    }
+                    // Get the Instance ID token//
+                    val fcmToken: String? = task.result?.token
+                    val msg = getString(R.string.fcm_token, fcmToken)
 
-        RequirementsWizardFactory
-            .createEstimoteRequirementsWizard()
-            .fulfillRequirements(this,
-                onRequirementsFulfilled = {
-                    Log.d("app", "requirements fulfilled")
-                    app.enableBeaconNotifications(tokenId)
-                },
-                onRequirementsMissing = { requirements ->
-                    Log.e("app", "requirements missing: $requirements")
-                },
+                    sendFcm(fcmToken.toString(), tokenId, service)
 
-                onError = { throwable ->
-                    Log.e("app", "requirements error: $throwable")
-                })
+                    Log.d(TAG, msg)
+                }
+            })
 
     }
 
@@ -133,8 +122,29 @@ class HomeActivity : AppCompatActivity() {
         homeList.adapter = HomeAdapter(homes!!, token)
     }
 
-//    override fun onDestroy () {
-//        super.onDestroy ()
-//        mp.release ()
-//    }
+    fun sendFcm(fcmToken: String, tokenId: String, service: APICenter) {
+        val request = HomeModel.RequestAddFcm(tokenId, fcmToken)
+        val call = service.addFcmToken(request)
+        call.enqueue(object : Callback<HomeModel.ResponseGeneral> {
+            override fun onResponse(
+                call: Call<HomeModel.ResponseGeneral>?,
+                response: Response<HomeModel.ResponseGeneral>?
+            ) {
+                Toast.makeText(
+                    this@HomeActivity, response?.body()?.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onFailure(
+                call: Call<HomeModel.ResponseGeneral>?,
+                throwable: Throwable?
+            ) {
+                Toast.makeText(
+                    this@HomeActivity, "Unable to send FCM token",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
 }

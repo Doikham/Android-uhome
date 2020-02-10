@@ -1,8 +1,7 @@
 package com.u.android_uhome.home
 
-import android.os.StrictMode
 import android.util.Log
-import com.u.android_uhome.APICenter
+import com.u.android_uhome.utils.APICenter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

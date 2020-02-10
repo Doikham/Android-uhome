@@ -2,7 +2,6 @@ package com.u.android_uhome.device
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.flask.colorpicker.ColorPickerView
-import com.flask.colorpicker.OnColorChangedListener
-import com.flask.colorpicker.OnColorSelectedListener
-import com.flask.colorpicker.builder.ColorPickerClickListener
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.u.android_uhome.R
 import com.u.android_uhome.home.HomeService

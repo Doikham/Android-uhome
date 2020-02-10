@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.u.android_uhome.R
 import com.u.android_uhome.device.DeviceActivity
-import com.u.android_uhome.home.HomeAdapter
 import kotlinx.android.synthetic.main.room.view.*
 
 class RoomAdapter(
@@ -52,10 +51,6 @@ class RoomAdapter(
     override fun getItemCount(): Int {
         return rooms.size
     }
-
-//    interface OnItemClickListener {
-//        fun onItemClick(homes: List<HomeModel.ResponseHome>)
-//    }
 
     class ViewHolder(itemLayoutView: View) : RecyclerView.ViewHolder(itemLayoutView) {
         val id: TextView = itemLayoutView.roomId

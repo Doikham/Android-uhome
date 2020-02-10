@@ -6,13 +6,10 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.u.android_uhome.APICenter
+import com.u.android_uhome.utils.APICenter
 import com.u.android_uhome.R
-import com.u.android_uhome.home.HomeAdapter
-import com.u.android_uhome.home.HomeModel
 import com.u.android_uhome.record.RecordActivity
 import kotlinx.android.synthetic.main.activity_device.*
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.optionBtn
 import kotlinx.android.synthetic.main.activity_home.toolbar1
 import retrofit2.Call
