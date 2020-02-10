@@ -39,6 +39,10 @@ class RoomActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        goHomeBtn.setOnClickListener {
+            finish()
+        }
+
         val bundle = intent.extras
         val tokenId = bundle?.getString("tokenId")
         val homeId = bundle?.getInt("homeId").toString()
