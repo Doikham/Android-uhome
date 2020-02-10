@@ -37,7 +37,7 @@ class DeviceActivity : AppCompatActivity() {
         val bundle = intent.extras
         val tokenId = bundle?.getString("tokenId")
         val roomId = bundle?.getInt("roomId").toString()
-        val homeId = bundle?.getString("homeId")
+        val homeId = bundle?.getString("homeId").toString()
 
         deviceList.layoutManager = LinearLayoutManager(this)
         deviceList.itemAnimator = DefaultItemAnimator()
@@ -55,7 +55,7 @@ class DeviceActivity : AppCompatActivity() {
                 call: Call<DeviceModel.ResponseMessage>?,
                 response: Response<DeviceModel.ResponseMessage>?
             ) {
-                setAdapterData(response?.body()?.message, tokenId, homeId!!)
+                setAdapterData(response?.body()?.message, tokenId, homeId)
             }
 
             override fun onFailure(
