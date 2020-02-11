@@ -39,7 +39,7 @@ interface APICenter {
     fun changeColor(@Body request: DeviceModel.RequestChangeColor): Call<DeviceModel.Response>
 
     @POST("/getEstimoteKey")
-    fun getEstimoteApp(@Body request: EstimoteModel.RequestApp): Call<EstimoteModel.ResponseApp>
+    fun getEstimoteApp(@Body request: EstimoteModel.RequestApp): Call<EstimoteModel.ResponseAppSuccess>
 
     @POST("/notification/addRegis")
     fun addFcmToken(@Body request: HomeModel.RequestAddFcm): Call<HomeModel.ResponseGeneral>

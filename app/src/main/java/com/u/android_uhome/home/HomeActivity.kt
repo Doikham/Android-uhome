@@ -44,6 +44,10 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        goUserBtn.setOnClickListener {
+            finish()
+        }
+
         val bundle = intent.extras
         val tokenId = bundle?.getString("token")
 

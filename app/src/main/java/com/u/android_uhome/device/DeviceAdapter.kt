@@ -98,6 +98,7 @@ class DeviceAdapter(
                     android.R.color.holo_blue_bright
                 )
             )
+            .alphaSliderOnly()
             .build()
             .show()
     }
