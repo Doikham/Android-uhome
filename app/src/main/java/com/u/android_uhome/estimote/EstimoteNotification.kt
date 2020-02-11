@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.util.Log
@@ -13,6 +14,7 @@ import androidx.core.app.NotificationCompat
 import com.estimote.proximity_sdk.api.ProximityObserverBuilder
 import com.estimote.proximity_sdk.api.ProximityZoneBuilder
 import com.u.android_uhome.R
+import com.u.android_uhome.room.RoomActivity
 import com.u.android_uhome.user.UserActivity
 
 class EstimoteNotification(private val context: Context) {
@@ -81,11 +83,12 @@ class EstimoteNotification(private val context: Context) {
         return notification
     }
 
-    fun startObserver(token: String) {
+    fun startObserver(token: String, shared: SharedPreferences) {
         val notificationId = 1
         var id = ""
+        val room = RoomActivity()
         val proximityObserver =
-            ProximityObserverBuilder(context, (context as EstimoteApplication).cloudCredentials)
+            ProximityObserverBuilder(context, room.getEstimoteCredential(shared))
                 .withBalancedPowerMode()
                 .withScannerInForegroundService(
                     buildNotification(

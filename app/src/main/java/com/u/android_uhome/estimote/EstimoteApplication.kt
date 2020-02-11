@@ -1,34 +1,34 @@
 package com.u.android_uhome.estimote
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import com.estimote.proximity_sdk.api.EstimoteCloudCredentials
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class EstimoteApplication : Application() {
 
-    val cloudCredentials = EstimoteCloudCredentials(
-        "uhome-g7u",
-        "edeae45dd50b1d0ff0f4efbe7f165a91"
-    )
-
 //    val cloudCredentials = EstimoteCloudCredentials(
-//        R.string.estimote_app_id.toString(),
-//        R.string.estimote_app_token.toString()
+//        "uhome-g7u",
+//        "edeae45dd50b1d0ff0f4efbe7f165a91"
 //    )
 
-//    private var prefs =
+//    private val shared: SharedPreferences =
 //        getSharedPreferences("MyPref", Context.MODE_PRIVATE)
-//    var id: String? = prefs.getString("app_id", "")
-//    var token: String? = prefs.getString("app_token", "")
-//
+
+//    var shared: SharedPreferences = PreferenceManager
+//        .getDefaultSharedPreferences(this)
+    
 //    val cloudCredentials = EstimoteCloudCredentials(
-//        id.toString(),
-//        token.toString()
+//        shared.getString("app_id", ""),
+//        shared.getString("app_token", "")
 //    )
 
-    fun enableBeaconNotifications(token: String) {
+    fun enableBeaconNotifications(token: String , shared: SharedPreferences) {
         val notificationsManager =
             EstimoteNotification(this)
-        notificationsManager.startObserver(token)
+        notificationsManager.startObserver(token, shared)
     }
 
 }
