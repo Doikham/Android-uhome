@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.u.android_uhome.R
@@ -39,6 +40,12 @@ class RoomAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        when (rooms[position].roomType) {
+            "Bathroom" -> holder.image.setImageResource(R.drawable.bath)
+            "Living room" -> holder.image.setImageResource(R.drawable.chair)
+            "Kitchen" -> holder.image.setImageResource(R.drawable.kitchen)
+            "Bedroom" -> holder.image.setImageResource(R.drawable.bed)
+        }
         holder.id.text = rooms[position].roomId.toString()
         holder.name.text = rooms[position].roomName
         holder.type.text = rooms[position].roomType
@@ -56,5 +63,6 @@ class RoomAdapter(
         val id: TextView = itemLayoutView.roomId
         val name: TextView = itemLayoutView.roomName
         val type: TextView = itemLayoutView.roomType
+        val image: ImageView = itemLayoutView.imageView2
     }
 }

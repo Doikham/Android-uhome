@@ -1,6 +1,7 @@
 package com.u.android_uhome.device
 
 import android.util.Log
+import com.u.android_uhome.home.HomeModel
 import com.u.android_uhome.utils.APICenter
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,6 +32,27 @@ class DeviceService {
 
             override fun onFailure(
                 call: Call<DeviceModel.Response>?,
+                throwable: Throwable?
+            ) {
+            }
+        })
+    }
+
+    fun callToggleSwitch(token: String, deviceId: String, homeId: String) {
+        var service = retrofit.create(APICenter::class.java)
+        val request = HomeModel.RequestSwitchLight(token, deviceId, homeId)
+        val call = service.toggleSwitch(request)
+        call.enqueue(object : Callback<HomeModel.ResponseSwitchLight> {
+            override fun onResponse(
+                call: Call<HomeModel.ResponseSwitchLight>?,
+                response: Response<HomeModel.ResponseSwitchLight>?
+            ) {
+                Log.d("app", response?.body()?.message.toString())
+
+            }
+
+            override fun onFailure(
+                call: Call<HomeModel.ResponseSwitchLight>?,
                 throwable: Throwable?
             ) {
             }

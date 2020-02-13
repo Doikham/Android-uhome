@@ -108,7 +108,7 @@ class DeviceAdapter(
         holder.id.text = devices[position].deviceId.toString()
         holder.on.isChecked = devices[position].on
         holder.on.setOnCheckedChangeListener { _, _ ->
-            val service = HomeService()
+            val service = DeviceService()
             service.callToggleSwitch(token, devices[position].deviceId.toString(), homeId)
         }
         holder.itemView.setOnClickListener {

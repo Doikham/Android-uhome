@@ -17,16 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".estimote.EstimoteActivity">
-
+        <activity android:name=".estimote.EstimoteActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".light.LightActivity"></activity>
-        <activity android:name=".device.DeviceActivity" />
-        <activity android:name=".room.RoomActivity" />
-        <activity android:name=".record.RecordActivity" />
-        <activity android:name=".profile.ProfileActivity" />
-        <activity android:name=".home.HomeActivity" />
-        <activity android:name=".user.UserActivity">
+        <activity android:name=".device.DeviceActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".room.RoomActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".record.RecordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".home.HomeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".user.UserActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

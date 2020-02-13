@@ -3,6 +3,7 @@ package com.u.android_uhome.utils
 import com.u.android_uhome.device.DeviceModel
 import com.u.android_uhome.estimote.EstimoteModel
 import com.u.android_uhome.home.HomeModel
+import com.u.android_uhome.record.RecordModel
 import com.u.android_uhome.room.RoomModel
 import retrofit2.Call
 import retrofit2.http.*
@@ -18,7 +19,7 @@ interface APICenter {
     fun toggleSwitch(@Body request: HomeModel.RequestSwitchLight): Call<HomeModel.ResponseSwitchLight>
 
     @POST("/api/starttimer")
-    fun startTimer(@Body request: HomeModel.Request): Call<HomeModel.ResponseStartTimer>
+    fun startTimer(@Body request: RoomModel.RequestStartTimer): Call<RoomModel.ResponseStartTimer>
 
     @POST("/api/stoptimer")
     fun stopTimer(@Body request: HomeModel.RequestStopTimer): Call<HomeModel.ResponseStopTimer>
@@ -43,4 +44,7 @@ interface APICenter {
 
     @POST("/notification/addRegis")
     fun addFcmToken(@Body request: HomeModel.RequestAddFcm): Call<HomeModel.ResponseGeneral>
+
+    @POST("/api/getUserActivity")
+    fun getUserActivity(@Body request: RecordModel.RequestRecord): Call<RecordModel.ResponseRecord>
 }

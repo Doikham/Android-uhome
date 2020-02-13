@@ -37,19 +37,20 @@ class HomeActivity : AppCompatActivity() {
         val actionbar = supportActionBar
         actionbar?.setDisplayHomeAsUpEnabled(true)
 
+        val bundle = intent.extras
+        val tokenId = bundle?.getString("token")
+
         val toolbar = toolbar1
         setSupportActionBar(toolbar)
         optionBtn.setOnClickListener {
             val intent = Intent(this, RecordActivity::class.java)
+            intent.putExtra("idToken", tokenId)
             startActivity(intent)
         }
 
         goUserBtn.setOnClickListener {
             finish()
         }
-
-        val bundle = intent.extras
-        val tokenId = bundle?.getString("token")
 
         homeList.layoutManager = LinearLayoutManager(this)
         homeList.itemAnimator = DefaultItemAnimator()
