@@ -18,4 +18,15 @@ class RoomModel {
         @SerializedName("Name") val roomName: String,
         @SerializedName("Type") val roomType: String
     )
+
+    data class RequestStartTimer(
+        @SerializedName("idToken") val token: String,
+        @SerializedName("RoomID") val roomId: String,
+        @SerializedName("Name") val roomName: String,
+        @SerializedName("Type") val roomType: String
+    )
+
+    data class ResponseStartTimer(
+        @SerializedName("_id") val id: String
+    )
 }

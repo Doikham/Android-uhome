@@ -4,6 +4,7 @@ import android.os.StrictMode
 import android.util.Log
 import com.u.android_uhome.utils.APICenter
 import com.u.android_uhome.home.HomeModel
+import com.u.android_uhome.room.RoomModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,15 +19,15 @@ class EstimoteService {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun callStartTimer(token: String): String? {
+    fun callStartTimer(token: String, roomId: String, roomName: String, roomType: String): String? {
         val service = retrofit.create(APICenter::class.java)
-        val request = HomeModel.Request(token)
+        val request = RoomModel.RequestStartTimer(token, roomId, roomName, roomType)
         val call = service.startTimer(request)
         val policy =
             StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
         try {
-            val response: Response<HomeModel.ResponseStartTimer> = call.execute()
+            val response: Response<RoomModel.ResponseStartTimer> = call.execute()
             Log.d("app", "Start timer")
             return response.body()?.id
         } catch (ex: Exception) {

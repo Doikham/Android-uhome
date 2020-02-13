@@ -1,67 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".record.RecordActivity">
 
-    <TableLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        android:stretchColumns="*">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:layout_marginBottom="10dp"
+        >
 
-        <TableRow
-            android:id="@+id/livingRoom"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:weightSum="7"
+            >
 
             <TextView
-                android:id="@+id/livingText"
-                android:text="Living Room"
-                />
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="@string/uhome_application"
+                android:textAlignment="center"
+                android:textSize="26sp"
+                android:textColor="@color/white"/>
 
-            <TextView
-                android:id="@+id/livingUsage"
-                android:text="0.0.0"
-                />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
-        </TableRow>
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barchart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.github.mikephil.charting.charts.BarChart>
 
-        <TableRow
-            android:id="@+id/restRoom"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/restText"
-                android:text="Restroom"
-                />
-
-            <TextView
-                android:id="@+id/restUsage"
-                android:text="0.0.0"
-                />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/bedRoom"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/bedText"
-                android:text="Bedroom"
-                />
-
-            <TextView
-                android:id="@+id/bedUsage"
-                android:text="0.0.0"
-                />
-
-        </TableRow>
-    </TableLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

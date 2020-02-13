@@ -27,21 +27,22 @@ class DeviceActivity : AppCompatActivity() {
         val actionbar = supportActionBar
         actionbar?.setDisplayHomeAsUpEnabled(true)
 
+        val bundle = intent.extras
+        val tokenId = bundle?.getString("tokenId")
+        val roomId = bundle?.getInt("roomId").toString()
+        val homeId = bundle?.getString("homeId").toString()
+
         val toolbar = toolbar1
         setSupportActionBar(toolbar)
         optionBtn.setOnClickListener {
             val intent = Intent(this, RecordActivity::class.java)
+            intent.putExtra("idToken", tokenId)
             startActivity(intent)
         }
 
         goRoomBtn.setOnClickListener {
             finish()
         }
-
-        val bundle = intent.extras
-        val tokenId = bundle?.getString("tokenId")
-        val roomId = bundle?.getInt("roomId").toString()
-        val homeId = bundle?.getString("homeId").toString()
 
         deviceList.layoutManager = LinearLayoutManager(this)
         deviceList.itemAnimator = DefaultItemAnimator()

@@ -103,17 +103,24 @@ class EstimoteNotification(private val context: Context) {
             .forTag("uHome")
             .inNearRange()
             .onEnter { proximityContext ->
-                val room = proximityContext.attachments["room"]
-                Log.d("app", "Welcome to $room")
-                if (room != null) {
-                    notificationManager.notify(
-                        notificationId,
-                        buildNotification("Hey!", "You have entered the $room")
-                    )
-                }
+                Log.d("cred", room.getEstimoteCredential(shared).appId)
+                Log.d("cred", room.getEstimoteCredential(shared).appToken)
+                val roomId = proximityContext.attachments["RoomID"]
+                val roomName = proximityContext.attachments["Name"]
+                val roomType = proximityContext.attachments["Type"]
+                Log.d("app", "Welcome to $roomId")
+                Log.d("app", "Welcome to $roomName")
+                Log.d("app", "Welcome to $roomType")
+                notificationManager.notify(
+                    notificationId,
+                    buildNotification("Hey!", "You have entered the $roomName")
+                )
                 val service = EstimoteService()
-                id = service.callStartTimer(token)!!
-
+                id = service.callStartTimer(
+                    token, roomId.toString(),
+                    roomName.toString(), roomType.toString()
+                ).toString()
+                Log.d("app", id)
             }
             .onExit {
                 notificationManager.notify(
@@ -126,9 +133,9 @@ class EstimoteNotification(private val context: Context) {
             .onContextChange { context ->
                 val rooms = ArrayList<String>()
                 for (context in context) {
-                    rooms.add(context.attachments["room"].toString())
+                    rooms.add(context.attachments["Name"].toString())
                 }
-                if (!rooms.isNullOrEmpty())
+//                if (!rooms.isNullOrEmpty())
                     notificationManager.notify(
                         notificationId,
                         buildNotification("Oh!", "You are near $rooms")

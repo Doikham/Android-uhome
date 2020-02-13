@@ -37,20 +37,21 @@ class RoomActivity : AppCompatActivity() {
         val actionbar = supportActionBar
         actionbar?.setDisplayHomeAsUpEnabled(true)
 
+        val bundle = intent.extras
+        val tokenId = bundle?.getString("tokenId")
+        val homeId = bundle?.getInt("homeId").toString()
+
         val toolbar = toolbar1
         setSupportActionBar(toolbar)
         optionBtn.setOnClickListener {
             val intent = Intent(this, RecordActivity::class.java)
+            intent.putExtra("idToken", tokenId)
             startActivity(intent)
         }
 
         goHomeBtn.setOnClickListener {
             finish()
         }
-
-        val bundle = intent.extras
-        val tokenId = bundle?.getString("tokenId")
-        val homeId = bundle?.getInt("homeId").toString()
 
         roomList.layoutManager = LinearLayoutManager(this)
         roomList.itemAnimator = DefaultItemAnimator()
@@ -141,8 +142,8 @@ class RoomActivity : AppCompatActivity() {
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     fun getEstimoteCredential(shared: SharedPreferences): EstimoteCloudCredentials {
         return EstimoteCloudCredentials(
-            shared.getString("app_id", "def"),
-            shared.getString("app_token", "def")
+            shared.getString("app_id", ""),
+            shared.getString("app_token", "")
         )
 //        return EstimoteCloudCredentials(
 //            "123456789",
