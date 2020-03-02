@@ -29,6 +29,10 @@ class FindMyFamActivity : AppCompatActivity() {
         val toolbar = toolbar1
         setSupportActionBar(toolbar)
 
+        goBackBtn.setOnClickListener {
+            finish()
+        }
+
         val bundle = intent.extras
         val tokenId = bundle?.getString("idToken")
         val homeId = bundle?.getString("homeId")

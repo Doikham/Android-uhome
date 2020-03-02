@@ -49,6 +49,6 @@ interface APICenter {
     @POST("/api/getUserActivity")
     fun getUserActivity(@Body request: RecordModel.RequestRecord): Call<RecordModel.ResponseRecord>
 
-    @POST("/home/gertUserLocations")
+    @POST("/home/getUserLocations")
     fun findMember(@Body request: FindMyFamModel.Request): Call<FindMyFamModel.Response>
 }

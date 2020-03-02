@@ -118,5 +118,6 @@
     <string name="display_date">Display Date</string>
     <string name="user_name">user_name</string>
     <string name="enter_time">enter_time</string>
+    <string name="member_s_location">Member\'s location</string>
 
 </resources>

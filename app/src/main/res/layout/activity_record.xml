@@ -26,9 +26,16 @@
             android:orientation="horizontal"
             android:weightSum="7">
 
+            <Button
+                android:id="@+id/goBackBtn"
+                android:layout_width="7dp"
+                android:layout_height="28dp"
+                android:background="@drawable/ic_arrow_back_black_24dp"
+                android:layout_weight="1"/>
+
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:text="@string/uhome_application"

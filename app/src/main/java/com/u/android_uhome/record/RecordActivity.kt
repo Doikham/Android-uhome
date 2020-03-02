@@ -45,6 +45,10 @@ class RecordActivity : AppCompatActivity() {
         val toolbar = toolbar1
         setSupportActionBar(toolbar)
 
+        goBackBtn.setOnClickListener {
+            finish()
+        }
+
         val bundle = intent.extras
         val tokenId = bundle?.getString("idToken")
         val homeId = bundle?.getString("homeId")
@@ -126,7 +130,7 @@ class RecordActivity : AppCompatActivity() {
         val barDataSet = BarDataSet(entries, "Rooms")
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
         barDataSet.valueTextSize = 20.0F
-        barChart.animateY(5000)
+        barChart.animateY(2000)
         val data = BarData(labels, barDataSet)
         barChart.data = data // set the data and list of labels into chart
         barChart.setDescription("unit in minutes") // set the description

@@ -24,7 +24,7 @@ class RoomModel {
         @SerializedName("RoomID") val roomId: String,
         @SerializedName("Name") val roomName: String,
         @SerializedName("Type") val roomType: String,
-        @SerializedName("homeID") val homeId: String
+        @SerializedName("HomeID") val homeId: String
     )
 
     data class ResponseStartTimer(
