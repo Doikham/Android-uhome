@@ -5,11 +5,13 @@ import com.google.gson.annotations.SerializedName
 class RecordModel {
 
     data class RequestRecord(
-        @SerializedName("idToken") val idToken: String
-    )
+        @SerializedName("idToken") val idToken: String,
+        @SerializedName("date") val date: String,
+        @SerializedName("HomeID") val homeId: String
+        )
 
     data class ResponseRecord(
-        @SerializedName("message") val message: Array<IntArray>
+        @SerializedName("message") val message: Array<Array<String>>
     ) {
         override fun equals(other: Any?): Boolean {
             if (this === other) return true

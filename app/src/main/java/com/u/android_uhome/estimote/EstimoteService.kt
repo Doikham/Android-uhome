@@ -19,9 +19,15 @@ class EstimoteService {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun callStartTimer(token: String, roomId: String, roomName: String, roomType: String): String? {
+    fun callStartTimer(
+        token: String,
+        roomId: String,
+        roomName: String,
+        roomType: String,
+        homeId: String
+    ): String? {
         val service = retrofit.create(APICenter::class.java)
-        val request = RoomModel.RequestStartTimer(token, roomId, roomName, roomType)
+        val request = RoomModel.RequestStartTimer(token, roomId, roomName, roomType, homeId)
         val call = service.startTimer(request)
         val policy =
             StrictMode.ThreadPolicy.Builder().permitAll().build()

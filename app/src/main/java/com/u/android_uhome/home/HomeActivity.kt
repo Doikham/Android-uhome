@@ -6,6 +6,8 @@ import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -42,11 +44,6 @@ class HomeActivity : AppCompatActivity() {
 
         val toolbar = toolbar1
         setSupportActionBar(toolbar)
-        optionBtn.setOnClickListener {
-            val intent = Intent(this, RecordActivity::class.java)
-            intent.putExtra("idToken", tokenId)
-            startActivity(intent)
-        }
 
         goUserBtn.setOnClickListener {
             finish()

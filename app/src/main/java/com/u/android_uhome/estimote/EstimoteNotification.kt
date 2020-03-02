@@ -108,6 +108,7 @@ class EstimoteNotification(private val context: Context) {
                 val roomId = proximityContext.attachments["RoomID"]
                 val roomName = proximityContext.attachments["Name"]
                 val roomType = proximityContext.attachments["Type"]
+                val homeId = proximityContext.attachments["HomeID"]
                 Log.d("app", "Welcome to $roomId")
                 Log.d("app", "Welcome to $roomName")
                 Log.d("app", "Welcome to $roomType")
@@ -118,7 +119,7 @@ class EstimoteNotification(private val context: Context) {
                 val service = EstimoteService()
                 id = service.callStartTimer(
                     token, roomId.toString(),
-                    roomName.toString(), roomType.toString()
+                    roomName.toString(), roomType.toString(), homeId.toString()
                 ).toString()
                 Log.d("app", id)
             }
@@ -135,7 +136,7 @@ class EstimoteNotification(private val context: Context) {
                 for (context in context) {
                     rooms.add(context.attachments["Name"].toString())
                 }
-//                if (!rooms.isNullOrEmpty())
+                if (!rooms.isNullOrEmpty())
                     notificationManager.notify(
                         notificationId,
                         buildNotification("Oh!", "You are near $rooms")

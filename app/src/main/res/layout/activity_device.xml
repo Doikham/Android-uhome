@@ -74,13 +74,6 @@
                 android:textSize="26sp"
                 android:textColor="@color/white"/>
 
-            <Button
-                android:id="@+id/optionBtn"
-                android:layout_width="7dp"
-                android:layout_height="28dp"
-                android:layout_weight="1"
-                android:background="@drawable/ic_live_help_black_24dp" />
-
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
