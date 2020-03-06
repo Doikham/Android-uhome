@@ -2,8 +2,12 @@ package com.u.android_uhome.find
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.u.android_uhome.R
@@ -33,12 +37,21 @@ class FindMyFamActivity : AppCompatActivity() {
             finish()
         }
 
+        progressBar
         val bundle = intent.extras
         val tokenId = bundle?.getString("idToken")
         val homeId = bundle?.getString("homeId")
 
         memberList.layoutManager = LinearLayoutManager(this)
         memberList.itemAnimator = DefaultItemAnimator()
+
+        val itemDecorator =
+            DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider)!!)
+
+        memberList.addItemDecoration(
+            itemDecorator
+        )
 
         val retrofit = Retrofit.Builder()
             .baseUrl(getString(R.string.baseUrl))
@@ -54,6 +67,11 @@ class FindMyFamActivity : AppCompatActivity() {
                 response: Response<FindMyFamModel.Response>?
             ) {
                 setAdapterData(response?.body()?.message, tokenId, homeId)
+                Log.d("message", response?.body()?.message.toString())
+                if(response?.body()?.message?.isEmpty()!!)
+                    progressBar.visibility = View.VISIBLE
+                else
+                    progressBar.visibility = View.GONE
             }
 
             override fun onFailure(

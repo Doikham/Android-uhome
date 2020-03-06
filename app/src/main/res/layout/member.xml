@@ -7,23 +7,28 @@
     android:orientation="horizontal"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:weightSum="5">
+    android:weightSum="7"
+    android:baselineAligned="false"
+    android:elevation="8dp"
+    >
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center">
 
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
             app:srcCompat="@drawable/ic_people_black_24dp" />
     </LinearLayout>
 
@@ -35,14 +40,10 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_weight="4"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/userId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/user_id" />
+        android:layout_weight="6"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
 
         <TextView
             android:id="@+id/userName"

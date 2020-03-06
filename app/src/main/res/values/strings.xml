@@ -119,5 +119,15 @@
     <string name="user_name">user_name</string>
     <string name="enter_time">enter_time</string>
     <string name="member_s_location">Member\'s location</string>
+    <string name="houses">Houses</string>
+    <string name="rooms">Rooms</string>
+    <string name="devices">Devices</string>
+    <string name="records">Records</string>
+    <string name="findmyfam">FindMyFam</string>
+    <string name="statistics">Statistics</string>
+
+    <string name="location_text">Location: </string>
+    <string name="time_text">Time: </string>
+
 
 </resources>

@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.u.android_uhome.utils.APICenter
 import com.u.android_uhome.R
@@ -43,6 +45,14 @@ class DeviceActivity : AppCompatActivity() {
 
         deviceList.layoutManager = LinearLayoutManager(this)
         deviceList.itemAnimator = DefaultItemAnimator()
+
+        val itemDecorator =
+            DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider)!!)
+
+        deviceList.addItemDecoration(
+            itemDecorator
+        )
 
         val retrofit = Retrofit.Builder()
             .baseUrl(getString(R.string.baseUrl))

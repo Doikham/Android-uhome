@@ -9,7 +9,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.estimote.proximity_sdk.api.EstimoteCloudCredentials
@@ -52,6 +54,14 @@ class RoomActivity : AppCompatActivity() {
 
         roomList.layoutManager = LinearLayoutManager(this)
         roomList.itemAnimator = DefaultItemAnimator()
+
+        val itemDecorator =
+            DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider)!!)
+
+        roomList.addItemDecoration(
+            itemDecorator
+        )
 
         val retrofit = Retrofit.Builder()
             .baseUrl(getString(R.string.baseUrl))

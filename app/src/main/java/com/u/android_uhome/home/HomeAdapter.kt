@@ -35,7 +35,6 @@ class HomeAdapter(private val homes: List<HomeModel.ResponseHome>, private val t
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.id.text = homes[position].homeId.toString()
         holder.name.text = homes[position].homeName
         holder.itemView.setOnClickListener {
             Log.d("info", homes[position].homeId.toString())
@@ -48,7 +47,6 @@ class HomeAdapter(private val homes: List<HomeModel.ResponseHome>, private val t
     }
 
     class ViewHolder(itemLayoutView: View) : RecyclerView.ViewHolder(itemLayoutView) {
-        val id: TextView = itemLayoutView.homeId
         val name: TextView = itemLayoutView.homeName
     }
 }
