@@ -105,7 +105,6 @@ class DeviceAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = devices[position].deviceName
-        holder.id.text = devices[position].deviceId.toString()
         holder.on.isChecked = devices[position].on
         holder.on.setOnCheckedChangeListener { _, _ ->
             val service = DeviceService()
@@ -118,7 +117,6 @@ class DeviceAdapter(
     }
 
     class ViewHolder(itemLayoutView: View) : RecyclerView.ViewHolder(itemLayoutView) {
-        val id: TextView = itemLayoutView.deviceId
         val name: TextView = itemLayoutView.deviceName
         var on: Switch = itemLayoutView.toggleBtn
     }

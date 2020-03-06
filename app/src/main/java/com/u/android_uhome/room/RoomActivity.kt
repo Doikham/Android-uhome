@@ -6,8 +6,13 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.estimote.proximity_sdk.api.EstimoteCloudCredentials
@@ -15,8 +20,8 @@ import com.u.android_uhome.utils.APICenter
 import com.u.android_uhome.R
 import com.u.android_uhome.estimote.EstimoteApplication
 import com.u.android_uhome.estimote.EstimoteModel
+import com.u.android_uhome.find.FindMyFamActivity
 import com.u.android_uhome.record.RecordActivity
-import kotlinx.android.synthetic.main.activity_home.optionBtn
 import kotlinx.android.synthetic.main.activity_home.toolbar1
 import kotlinx.android.synthetic.main.activity_room.*
 import retrofit2.Call
@@ -43,11 +48,6 @@ class RoomActivity : AppCompatActivity() {
 
         val toolbar = toolbar1
         setSupportActionBar(toolbar)
-        optionBtn.setOnClickListener {
-            val intent = Intent(this, RecordActivity::class.java)
-            intent.putExtra("idToken", tokenId)
-            startActivity(intent)
-        }
 
         goHomeBtn.setOnClickListener {
             finish()
@@ -55,6 +55,14 @@ class RoomActivity : AppCompatActivity() {
 
         roomList.layoutManager = LinearLayoutManager(this)
         roomList.itemAnimator = DefaultItemAnimator()
+
+        val itemDecorator =
+            DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider)!!)
+
+        roomList.addItemDecoration(
+            itemDecorator
+        )
 
         val retrofit = Retrofit.Builder()
             .baseUrl(getString(R.string.baseUrl))
@@ -71,6 +79,13 @@ class RoomActivity : AppCompatActivity() {
                 response: Response<RoomModel.ResponseMessage>?
             ) {
                 setAdapterData(response?.body()?.message, tokenId, homeId)
+                Log.d("message", response?.body()?.message.toString())
+                if(response?.body()?.message?.isEmpty()!!)
+                    progressBarRoom.visibility = View.VISIBLE
+                else {
+                    progressBarRoom.visibility = View.GONE
+                    roomList.visibility = View.VISIBLE
+                }
             }
 
             override fun onFailure(call: Call<RoomModel.ResponseMessage>?, throwable: Throwable?) {
@@ -113,7 +128,7 @@ class RoomActivity : AppCompatActivity() {
                 throwable: Throwable?
             ) {
                 Toast.makeText(
-                    this@RoomActivity, "Unable to load rooms",
+                    this@RoomActivity, "Unable to get estimote credential",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -145,9 +160,44 @@ class RoomActivity : AppCompatActivity() {
             shared.getString("app_id", ""),
             shared.getString("app_token", "")
         )
-//        return EstimoteCloudCredentials(
-//            "123456789",
-//            "987654321"
-//        )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_option, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.findMyFam -> {// do your code
+                goToFindFamPage()
+                true
+            }
+            R.id.statPage -> { // do your code
+                goToStatPage()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun goToStatPage() {
+        val bundle = intent.extras
+        val tokenId = bundle?.getString("tokenId")
+        val homeId = bundle?.getInt("homeId").toString()
+        val intent = Intent(this, RecordActivity::class.java)
+        intent.putExtra("idToken", tokenId)
+        intent.putExtra("homeId", homeId)
+        startActivity(intent)
+    }
+
+    private fun goToFindFamPage() {
+        val bundle = intent.extras
+        val tokenId = bundle?.getString("tokenId")
+        val homeId = bundle?.getInt("homeId").toString()
+        val intent = Intent(this, FindMyFamActivity::class.java)
+        intent.putExtra("idToken", tokenId)
+        intent.putExtra("homeId", homeId)
+        startActivity(intent)
     }
 }

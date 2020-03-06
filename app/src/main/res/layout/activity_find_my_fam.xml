@@ -4,19 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".device.DeviceActivity"
     android:orientation="vertical"
-    android:weightSum="3">
+    tools:context=".find.FindMyFamActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        android:layout_marginBottom="10dp"
-        >
+        android:theme="?attr/actionBarTheme">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,32 +24,39 @@
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-            android:weightSum="10"
-            >
+            android:weightSum="10">
 
             <Button
-                android:id="@+id/goRoomBtn"
+                android:id="@+id/goBackBtn"
                 android:layout_width="15dp"
                 android:layout_height="35dp"
                 android:layout_margin="5dp"
-                android:background="@drawable/door_64"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/arrow_64" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="9"
-                android:text="@string/devices"
-                android:textAlignment="center"
+                android:layout_weight="8"
                 android:gravity="center"
-                android:textSize="26sp"
-                android:textColor="@color/white"/>
+                android:text="@string/findmyfam"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="26sp" />
+
+            <Button
+                android:id="@+id/refreshBtn"
+                android:layout_width="15dp"
+                android:layout_height="35dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/refresh_64" />
 
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
     <ProgressBar
-        android:id="@+id/progressBarDevice"
+        android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +65,7 @@
         android:layout_gravity="center"
         tools:visibility="gone" />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/deviceList"
+        android:id="@+id/memberList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
@@ -69,6 +74,8 @@
         android:layout_marginBottom="20dp"
         android:scrollbars="vertical"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="visible">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

@@ -51,24 +51,6 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             )
         }
 
-//        val notificationBuilder = NotificationCompat.Builder(this, "channel_id")
-//            .setContentTitle(remoteMessage.notification?.title)
-//            .setContentText(remoteMessage.notification?.body)
-//            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//            .setStyle(NotificationCompat.BigTextStyle())
-//            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-//            .setSmallIcon(R.mipmap.ic_launcher)
-//            .setAutoCancel(true)
-//        val notificationManager =
-//            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//        notificationManager.notify(0, notificationBuilder.build())
     }
-
-//    private fun startFindingPhone(mp: MediaPlayer, vibrator: Vibrator) {
-//        mp.start()
-//        mp.isLooping = true
-//        val pattern = longArrayOf(0, 200, 0)
-//        vibrator.vibrate(pattern, 0)
-//    }
 
 }

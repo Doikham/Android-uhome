@@ -3,14 +3,20 @@ package com.u.android_uhome.device
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.u.android_uhome.utils.APICenter
 import com.u.android_uhome.R
+import com.u.android_uhome.find.FindMyFamActivity
 import com.u.android_uhome.record.RecordActivity
 import kotlinx.android.synthetic.main.activity_device.*
-import kotlinx.android.synthetic.main.activity_home.optionBtn
 import kotlinx.android.synthetic.main.activity_home.toolbar1
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,11 +40,6 @@ class DeviceActivity : AppCompatActivity() {
 
         val toolbar = toolbar1
         setSupportActionBar(toolbar)
-        optionBtn.setOnClickListener {
-            val intent = Intent(this, RecordActivity::class.java)
-            intent.putExtra("idToken", tokenId)
-            startActivity(intent)
-        }
 
         goRoomBtn.setOnClickListener {
             finish()
@@ -46,6 +47,14 @@ class DeviceActivity : AppCompatActivity() {
 
         deviceList.layoutManager = LinearLayoutManager(this)
         deviceList.itemAnimator = DefaultItemAnimator()
+
+        val itemDecorator =
+            DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider)!!)
+
+        deviceList.addItemDecoration(
+            itemDecorator
+        )
 
         val retrofit = Retrofit.Builder()
             .baseUrl(getString(R.string.baseUrl))
@@ -61,6 +70,13 @@ class DeviceActivity : AppCompatActivity() {
                 response: Response<DeviceModel.ResponseMessage>?
             ) {
                 setAdapterData(response?.body()?.message, tokenId, homeId)
+                Log.d("message", response?.body()?.message.toString())
+                if(response?.body()?.message?.isEmpty()!!)
+                    progressBarDevice.visibility = View.VISIBLE
+                else {
+                    progressBarDevice.visibility = View.GONE
+                    deviceList.visibility = View.VISIBLE
+                }
             }
 
             override fun onFailure(
@@ -86,5 +102,44 @@ class DeviceActivity : AppCompatActivity() {
         homeId: String
     ) {
         deviceList.adapter = DeviceAdapter(devices!!, token, homeId)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_option, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.findMyFam -> {// do your code
+                goToFindFamPage()
+                true
+            }
+            R.id.statPage -> { // do your code
+                goToStatPage()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun goToStatPage() {
+        val bundle = intent.extras
+        val tokenId = bundle?.getString("tokenId")
+        val homeId = bundle?.getString("homeId")
+        val intent = Intent(this, RecordActivity::class.java)
+        intent.putExtra("idToken", tokenId)
+        intent.putExtra("homeId", homeId)
+        startActivity(intent)
+    }
+
+    private fun goToFindFamPage() {
+        val bundle = intent.extras
+        val tokenId = bundle?.getString("tokenId")
+        val homeId = bundle?.getInt("homeId").toString()
+        val intent = Intent(this, FindMyFamActivity::class.java)
+        intent.putExtra("idToken", tokenId)
+        intent.putExtra("homeId", homeId)
+        startActivity(intent)
     }
 }

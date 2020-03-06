@@ -22,7 +22,6 @@ class EstimoteNotification(private val context: Context) {
     private var notificationId: Int? = null
     private val notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//    private val mp: MediaPlayer = MediaPlayer.create(context, R.raw.line_ring)
 
     private fun buildNotification(title: String, text: String): Notification {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -103,14 +102,10 @@ class EstimoteNotification(private val context: Context) {
             .forTag("uHome")
             .inNearRange()
             .onEnter { proximityContext ->
-                Log.d("cred", room.getEstimoteCredential(shared).appId)
-                Log.d("cred", room.getEstimoteCredential(shared).appToken)
                 val roomId = proximityContext.attachments["RoomID"]
                 val roomName = proximityContext.attachments["Name"]
                 val roomType = proximityContext.attachments["Type"]
-                Log.d("app", "Welcome to $roomId")
-                Log.d("app", "Welcome to $roomName")
-                Log.d("app", "Welcome to $roomType")
+                val homeId = proximityContext.attachments["HomeID"]
                 notificationManager.notify(
                     notificationId,
                     buildNotification("Hey!", "You have entered the $roomName")
@@ -118,9 +113,9 @@ class EstimoteNotification(private val context: Context) {
                 val service = EstimoteService()
                 id = service.callStartTimer(
                     token, roomId.toString(),
-                    roomName.toString(), roomType.toString()
+                    roomName.toString(), roomType.toString(), homeId.toString()
                 ).toString()
-                Log.d("app", id)
+                // Check for user properties
             }
             .onExit {
                 notificationManager.notify(
@@ -135,14 +130,13 @@ class EstimoteNotification(private val context: Context) {
                 for (context in context) {
                     rooms.add(context.attachments["Name"].toString())
                 }
-//                if (!rooms.isNullOrEmpty())
+                if (!rooms.isNullOrEmpty())
                     notificationManager.notify(
                         notificationId,
                         buildNotification("Oh!", "You are near $rooms")
                     )
             }
             .build()
-
         proximityObserver.startObserving(tableZone)
     }
 }

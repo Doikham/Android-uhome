@@ -2,6 +2,7 @@ package com.u.android_uhome.utils
 
 import com.u.android_uhome.device.DeviceModel
 import com.u.android_uhome.estimote.EstimoteModel
+import com.u.android_uhome.find.FindMyFamModel
 import com.u.android_uhome.home.HomeModel
 import com.u.android_uhome.record.RecordModel
 import com.u.android_uhome.room.RoomModel
@@ -47,4 +48,7 @@ interface APICenter {
 
     @POST("/api/getUserActivity")
     fun getUserActivity(@Body request: RecordModel.RequestRecord): Call<RecordModel.ResponseRecord>
+
+    @POST("/home/getUserLocations")
+    fun findMember(@Body request: FindMyFamModel.Request): Call<FindMyFamModel.Response>
 }

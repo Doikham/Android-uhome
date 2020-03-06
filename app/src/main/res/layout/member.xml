@@ -3,24 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="10dp"
-    android:paddingTop="10dp"
     android:background="@color/grey_100"
     android:orientation="horizontal"
-    android:weightSum="5"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:weightSum="7"
+    android:baselineAligned="false"
     android:elevation="8dp"
     >
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        >
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="center">
 
 
         <ImageView
@@ -28,7 +29,7 @@
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
+            app:srcCompat="@drawable/ic_people_black_24dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -39,18 +40,28 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_weight="6"
         android:orientation="vertical"
-        android:layout_weight="4"
         android:layout_gravity="center"
         >
 
         <TextView
-            android:id="@+id/homeName"
+            android:id="@+id/userName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/home_name" />
+            android:text="@string/user_name" />
+
+        <TextView
+            android:id="@+id/roomName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/room_name" />
+
+        <TextView
+            android:id="@+id/enterTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_time" />
 
     </LinearLayout>
-
-
 </LinearLayout>

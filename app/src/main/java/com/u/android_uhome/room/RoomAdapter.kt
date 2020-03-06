@@ -46,7 +46,6 @@ class RoomAdapter(
             "Kitchen" -> holder.image.setImageResource(R.drawable.kitchen)
             "Bedroom" -> holder.image.setImageResource(R.drawable.bed)
         }
-        holder.id.text = rooms[position].roomId.toString()
         holder.name.text = rooms[position].roomName
         holder.type.text = rooms[position].roomType
         holder.itemView.setOnClickListener {
@@ -60,7 +59,6 @@ class RoomAdapter(
     }
 
     class ViewHolder(itemLayoutView: View) : RecyclerView.ViewHolder(itemLayoutView) {
-        val id: TextView = itemLayoutView.roomId
         val name: TextView = itemLayoutView.roomName
         val type: TextView = itemLayoutView.roomType
         val image: ImageView = itemLayoutView.imageView2
