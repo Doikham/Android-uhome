@@ -37,7 +37,6 @@ class FindMyFamActivity : AppCompatActivity() {
             finish()
         }
 
-        progressBar
         val bundle = intent.extras
         val tokenId = bundle?.getString("idToken")
         val homeId = bundle?.getString("homeId")
@@ -52,6 +51,12 @@ class FindMyFamActivity : AppCompatActivity() {
         memberList.addItemDecoration(
             itemDecorator
         )
+
+        refreshBtn.setOnClickListener {
+            val refreshActivity = intent
+            finish()
+            startActivity(refreshActivity)
+        }
 
         val retrofit = Retrofit.Builder()
             .baseUrl(getString(R.string.baseUrl))
@@ -70,8 +75,10 @@ class FindMyFamActivity : AppCompatActivity() {
                 Log.d("message", response?.body()?.message.toString())
                 if(response?.body()?.message?.isEmpty()!!)
                     progressBar.visibility = View.VISIBLE
-                else
+                else {
                     progressBar.visibility = View.GONE
+                    memberList.visibility = View.VISIBLE
+                }
             }
 
             override fun onFailure(

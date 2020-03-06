@@ -3,8 +3,10 @@ package com.u.android_uhome.device
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -68,6 +70,13 @@ class DeviceActivity : AppCompatActivity() {
                 response: Response<DeviceModel.ResponseMessage>?
             ) {
                 setAdapterData(response?.body()?.message, tokenId, homeId)
+                Log.d("message", response?.body()?.message.toString())
+                if(response?.body()?.message?.isEmpty()!!)
+                    progressBarDevice.visibility = View.VISIBLE
+                else {
+                    progressBarDevice.visibility = View.GONE
+                    deviceList.visibility = View.VISIBLE
+                }
             }
 
             override fun onFailure(

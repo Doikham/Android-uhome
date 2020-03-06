@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
@@ -78,6 +79,13 @@ class HomeActivity : AppCompatActivity() {
                 response: Response<HomeModel.ResponseHomeMessage>?
             ) {
                 setAdapterData(response?.body()?.message, tokenId)
+                Log.d("message", response?.body()?.message.toString())
+                if(response?.body()?.message?.isEmpty()!!)
+                    progressBarHome.visibility = View.VISIBLE
+                else {
+                    progressBarHome.visibility = View.GONE
+                    homeList.visibility = View.VISIBLE
+                }
             }
 
             override fun onFailure(

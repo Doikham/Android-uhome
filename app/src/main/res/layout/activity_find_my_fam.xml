@@ -29,7 +29,8 @@
             <Button
                 android:id="@+id/goBackBtn"
                 android:layout_width="15dp"
-                android:layout_height="40dp"
+                android:layout_height="35dp"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/arrow_64" />
 
@@ -44,20 +45,25 @@
                 android:textColor="@color/white"
                 android:textSize="26sp" />
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleLarge"
+            <Button
+                android:id="@+id/refreshBtn"
                 android:layout_width="15dp"
-                android:layout_height="40dp"
-                android:visibility="visible"
+                android:layout_height="35dp"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-                tools:visibility="gone"
-                android:theme="@style/AppTheme.WhiteAccent"
-                />
+                android:background="@drawable/refresh_64" />
 
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="visible"
+        android:layout_gravity="center"
+        tools:visibility="gone" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/memberList"
         android:layout_width="match_parent"
@@ -66,7 +72,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
 
     </androidx.recyclerview.widget.RecyclerView>
 

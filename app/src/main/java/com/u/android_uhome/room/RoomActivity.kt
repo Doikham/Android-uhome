@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -78,6 +79,13 @@ class RoomActivity : AppCompatActivity() {
                 response: Response<RoomModel.ResponseMessage>?
             ) {
                 setAdapterData(response?.body()?.message, tokenId, homeId)
+                Log.d("message", response?.body()?.message.toString())
+                if(response?.body()?.message?.isEmpty()!!)
+                    progressBarRoom.visibility = View.VISIBLE
+                else {
+                    progressBarRoom.visibility = View.GONE
+                    roomList.visibility = View.VISIBLE
+                }
             }
 
             override fun onFailure(call: Call<RoomModel.ResponseMessage>?, throwable: Throwable?) {
