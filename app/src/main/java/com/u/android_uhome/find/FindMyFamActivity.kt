@@ -73,9 +73,13 @@ class FindMyFamActivity : AppCompatActivity() {
             ) {
                 setAdapterData(response?.body()?.message, tokenId, homeId)
                 Log.d("message", response?.body()?.message.toString())
-                if(response?.body()?.message?.isEmpty()!!)
-                    progressBar.visibility = View.VISIBLE
-                else {
+                if (response?.body()?.message?.isEmpty()!!) {
+                    progressBar.visibility = View.GONE
+                    Toast.makeText(
+                        this@FindMyFamActivity, "No member found",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     progressBar.visibility = View.GONE
                     memberList.visibility = View.VISIBLE
                 }

@@ -1,7 +1,9 @@
 package com.u.android_uhome.home
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -80,9 +82,13 @@ class HomeActivity : AppCompatActivity() {
             ) {
                 setAdapterData(response?.body()?.message, tokenId)
                 Log.d("message", response?.body()?.message.toString())
-                if(response?.body()?.message?.isEmpty()!!)
-                    progressBarHome.visibility = View.VISIBLE
-                else {
+                if (response?.body()?.message?.isEmpty()!!) {
+                    progressBarHome.visibility = View.GONE
+                    Toast.makeText(
+                        this@HomeActivity, "No house found",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     progressBarHome.visibility = View.GONE
                     homeList.visibility = View.VISIBLE
                 }
@@ -115,6 +121,8 @@ class HomeActivity : AppCompatActivity() {
             ) {
             }
         })
+        val shared: SharedPreferences =
+            getSharedPreferences("MyPref", Context.MODE_PRIVATE)
 
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult?> {
@@ -122,11 +130,18 @@ class HomeActivity : AppCompatActivity() {
                     if (!task.isSuccessful) { //To do//
                         return
                     }
+
                     // Get the Instance ID token//
                     val fcmToken: String? = task.result?.token
                     val msg = getString(R.string.fcm_token, fcmToken)
 
+                    if (shared.getString("fcmToken", "") == fcmToken)
+                        return
+
                     sendFcm(fcmToken.toString(), tokenId, service)
+                    val editor: SharedPreferences.Editor = shared.edit()
+                    editor.putString("fcmToken", fcmToken)
+                    editor.apply()
 
                     Log.d(TAG, msg)
                 }

@@ -71,9 +71,13 @@ class DeviceActivity : AppCompatActivity() {
             ) {
                 setAdapterData(response?.body()?.message, tokenId, homeId)
                 Log.d("message", response?.body()?.message.toString())
-                if(response?.body()?.message?.isEmpty()!!)
-                    progressBarDevice.visibility = View.VISIBLE
-                else {
+                if (response?.body()?.message?.isEmpty()!!) {
+                    progressBarDevice.visibility = View.GONE
+                    Toast.makeText(
+                        this@DeviceActivity, "No device found",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     progressBarDevice.visibility = View.GONE
                     deviceList.visibility = View.VISIBLE
                 }

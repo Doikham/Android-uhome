@@ -80,9 +80,13 @@ class RoomActivity : AppCompatActivity() {
             ) {
                 setAdapterData(response?.body()?.message, tokenId, homeId)
                 Log.d("message", response?.body()?.message.toString())
-                if(response?.body()?.message?.isEmpty()!!)
-                    progressBarRoom.visibility = View.VISIBLE
-                else {
+                if (response?.body()?.message?.isEmpty()!!) {
+                    progressBarRoom.visibility = View.GONE
+                    Toast.makeText(
+                        this@RoomActivity, "No room found",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     progressBarRoom.visibility = View.GONE
                     roomList.visibility = View.VISIBLE
                 }
