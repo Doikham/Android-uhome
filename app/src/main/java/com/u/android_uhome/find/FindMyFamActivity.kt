@@ -2,6 +2,7 @@ package com.u.android_uhome.find
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -34,6 +35,10 @@ class FindMyFamActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         goBackBtn.setOnClickListener {
+            finish()
+        }
+
+        backFromFind.setOnClickListener {
             finish()
         }
 
@@ -82,6 +87,7 @@ class FindMyFamActivity : AppCompatActivity() {
                 } else {
                     progressBar.visibility = View.GONE
                     memberList.visibility = View.VISIBLE
+                    backFromFind.visibility = View.VISIBLE
                 }
             }
 

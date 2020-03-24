@@ -14,6 +14,7 @@ import androidx.core.app.NotificationCompat
 import com.estimote.proximity_sdk.api.ProximityObserverBuilder
 import com.estimote.proximity_sdk.api.ProximityZoneBuilder
 import com.u.android_uhome.R
+import com.u.android_uhome.dashboard.DashBoardActivity
 import com.u.android_uhome.room.RoomActivity
 import com.u.android_uhome.user.UserActivity
 
@@ -82,17 +83,47 @@ class EstimoteNotification(private val context: Context) {
         return notification
     }
 
+    fun alertNotification(title: String, text: String) {
+        notificationId = 3
+        notificationManager.notify(
+            notificationId!!,
+            startBuildAlertNotification(title, text)
+        )
+    }
+
+    private fun startBuildAlertNotification(title: String, text: String): Notification {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.createNotificationChannel(
+                NotificationChannel(
+                    "Alert", "Alert Message", NotificationManager.IMPORTANCE_HIGH
+                )
+            )
+        }
+        return NotificationCompat.Builder(context, "Alert")
+            .setSmallIcon(R.drawable.ic_warning_black_24dp)
+            .setContentTitle(title)
+            .setContentText(text)
+            .setContentIntent(
+                PendingIntent.getActivity(
+                    context, 0,
+                    Intent(context, UserActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            )
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+    }
+
     fun startObserver(token: String, shared: SharedPreferences) {
         val notificationId = 1
         var id = ""
-        val room = RoomActivity()
+        val dashBoard = DashBoardActivity()
         val proximityObserver =
-            ProximityObserverBuilder(context, room.getEstimoteCredential(shared))
+            ProximityObserverBuilder(context, dashBoard.getEstimoteCredential(shared))
                 .withBalancedPowerMode()
                 .withScannerInForegroundService(
                     buildNotification(
-                        "Operate!",
-                        "Searching for beacons"
+                        "Warning!",
+                        "You are not in the house"
                     )
                 )
                 .onError { /* handle errors here */ }
@@ -108,22 +139,28 @@ class EstimoteNotification(private val context: Context) {
                 val homeId = proximityContext.attachments["HomeID"]
                 notificationManager.notify(
                     notificationId,
-                    buildNotification("Hey!", "You have entered the $roomName")
+                    buildNotification("Welcome!", "You have entered the $roomName")
                 )
                 val service = EstimoteService()
-                id = service.callStartTimer(
-                    token, roomId.toString(),
-                    roomName.toString(), roomType.toString(), homeId.toString()
-                ).toString()
+                if (shared.getString("start_timer_id","").isNullOrEmpty()) {
+                    id = service.callStartTimer(
+                        token, roomId.toString(),
+                        roomName.toString(), roomType.toString(), homeId.toString()
+                    ).toString()
+                    val editor: SharedPreferences.Editor = shared.edit()
+                    editor.putString("start_timer_id", id)
+                    editor.apply()
+                }
                 // Check for user properties
             }
             .onExit {
                 notificationManager.notify(
                     notificationId,
-                    buildNotification("Bye!", "You have exited the room")
+                    buildNotification("Warning!", "You are not in the house")
                 )
                 val service = EstimoteService()
                 service.callStopTimer(token, id)
+                shared.edit().remove("start_timer_id").apply()
             }
             .onContextChange { context ->
                 val rooms = ArrayList<String>()
@@ -133,7 +170,7 @@ class EstimoteNotification(private val context: Context) {
                 if (!rooms.isNullOrEmpty())
                     notificationManager.notify(
                         notificationId,
-                        buildNotification("Oh!", "You are near $rooms")
+                        buildNotification("Alert!", "You are in $rooms")
                     )
             }
             .build()

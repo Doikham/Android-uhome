@@ -1,5 +1,6 @@
 package com.u.android_uhome.utils
 
+import com.u.android_uhome.average.AverageModel
 import com.u.android_uhome.device.DeviceModel
 import com.u.android_uhome.estimote.EstimoteModel
 import com.u.android_uhome.find.FindMyFamModel
@@ -51,4 +52,10 @@ interface APICenter {
 
     @POST("/home/getUserLocations")
     fun findMember(@Body request: FindMyFamModel.Request): Call<FindMyFamModel.Response>
+
+    @POST("/api/getUserAverage")
+    fun getAverageTime(@Body request: AverageModel.RequestAverageTime): Call<AverageModel.ResponseAverage>
+
+    @POST("/admin/getUser")
+    fun getUserList(@Body request: AverageModel.RequestResidentList): Call<AverageModel.ResponseResidentList>
 }

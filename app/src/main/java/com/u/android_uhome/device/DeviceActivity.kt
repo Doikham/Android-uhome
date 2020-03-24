@@ -3,6 +3,7 @@ package com.u.android_uhome.device
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -56,6 +57,10 @@ class DeviceActivity : AppCompatActivity() {
             itemDecorator
         )
 
+        backFromDevice.setOnClickListener {
+            finish()
+        }
+
         val retrofit = Retrofit.Builder()
             .baseUrl(getString(R.string.baseUrl))
             .addConverterFactory(GsonConverterFactory.create())
@@ -106,44 +111,5 @@ class DeviceActivity : AppCompatActivity() {
         homeId: String
     ) {
         deviceList.adapter = DeviceAdapter(devices!!, token, homeId)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_option, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.findMyFam -> {// do your code
-                goToFindFamPage()
-                true
-            }
-            R.id.statPage -> { // do your code
-                goToStatPage()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun goToStatPage() {
-        val bundle = intent.extras
-        val tokenId = bundle?.getString("tokenId")
-        val homeId = bundle?.getString("homeId")
-        val intent = Intent(this, RecordActivity::class.java)
-        intent.putExtra("idToken", tokenId)
-        intent.putExtra("homeId", homeId)
-        startActivity(intent)
-    }
-
-    private fun goToFindFamPage() {
-        val bundle = intent.extras
-        val tokenId = bundle?.getString("tokenId")
-        val homeId = bundle?.getInt("homeId").toString()
-        val intent = Intent(this, FindMyFamActivity::class.java)
-        intent.putExtra("idToken", tokenId)
-        intent.putExtra("homeId", homeId)
-        startActivity(intent)
     }
 }

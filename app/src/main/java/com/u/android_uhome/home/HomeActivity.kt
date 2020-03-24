@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -52,6 +53,10 @@ class HomeActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         goUserBtn.setOnClickListener {
+            finish()
+        }
+
+        backFromHome.setOnClickListener {
             finish()
         }
 

@@ -1,17 +1,23 @@
 package com.u.android_uhome.record
 
 import android.app.DatePickerDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.Legend.LegendForm
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.u.android_uhome.R
 import com.u.android_uhome.utils.APICenter
@@ -24,7 +30,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 class RecordActivity : AppCompatActivity() {
@@ -39,6 +44,46 @@ class RecordActivity : AppCompatActivity() {
 
         val barChart = findViewById<View>(R.id.barchart) as BarChart
 
+        barChart.setDrawBarShadow(false)
+        barChart.setDrawValueAboveBar(true)
+        barChart.description.isEnabled = false
+        barChart.animateY(2000)
+        barChart.setMaxVisibleValueCount(60)
+        barChart.setPinchZoom(false)
+        barChart.setDrawGridBackground(false)
+        barChart.setExtraOffsets(5f, 10f, 5f, 5f)
+
+        val xAxis: XAxis = barChart.xAxis
+        xAxis.position = XAxisPosition.BOTH_SIDED
+        xAxis.setDrawGridLines(false)
+        xAxis.granularity = 1f // only intervals of 1 day
+        xAxis.textSize = 22F
+        xAxis.labelCount = 7
+
+        val leftAxis: YAxis = barChart.axisLeft
+        leftAxis.setLabelCount(8, false)
+        leftAxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART)
+        leftAxis.spaceTop = 15f
+        leftAxis.textSize = 30F
+        leftAxis.axisMinimum = 0f // this replaces setStartAtZero(true)
+
+        val rightAxis: YAxis = barChart.axisRight
+        rightAxis.setDrawGridLines(false)
+        rightAxis.setLabelCount(8, false)
+        rightAxis.spaceTop = 15f
+        rightAxis.textSize = 30F
+        rightAxis.axisMinimum = 0f // this replaces setStartAtZero(true)
+
+        val l: Legend = barChart.legend
+        l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+        l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+        l.orientation = Legend.LegendOrientation.HORIZONTAL
+        l.setDrawInside(false)
+        l.form = LegendForm.SQUARE
+        l.textSize = 22F
+        l.formSize = 30F
+        l.xEntrySpace = 4f
+
         val actionbar = supportActionBar
         actionbar?.setDisplayHomeAsUpEnabled(true)
 
@@ -46,6 +91,10 @@ class RecordActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         goBackBtn.setOnClickListener {
+            finish()
+        }
+
+        backFromRecord.setOnClickListener {
             finish()
         }
 
@@ -118,22 +167,38 @@ class RecordActivity : AppCompatActivity() {
         for (i in res!!.indices) {
             entries.add(
                 BarEntry(
+                    i.toFloat(),
                     ((((res[i][1].toLong()) / 1000) / 60) + ((((res[i][1].toLong()) / 1000) % 60).toDouble() / 60)
-                            ).toFloat(), i
+                            ).toFloat()
                 )
             )
         }
+
+        val barDataSet = BarDataSet(entries, "Time in room (minutes)")
+
+        val colors = java.util.ArrayList<Int>()
+        for (c in ColorTemplate.COLORFUL_COLORS) colors.add(c)
+        barDataSet.colors = colors
+
         val labels = ArrayList<String>()
         for (j in res.indices) {
             labels.add(res[j][0])
         }
-        val barDataSet = BarDataSet(entries, "Rooms")
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
-        barDataSet.valueTextSize = 20.0F
+        val formatter: ValueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String? {
+                return labels[value.toInt()]
+            }
+        }
+
+        val xAxis: XAxis = barChart.xAxis
+        xAxis.valueFormatter = formatter
+
+        val data = BarData(barDataSet)
+        data.setValueTextSize(30F)
+        data.barWidth = 0.9F
+
         barChart.animateY(2000)
-        val data = BarData(labels, barDataSet)
-        barChart.data = data // set the data and list of labels into chart
-        barChart.setDescription("unit in minutes") // set the description
-        barChart.setDescriptionTextSize(20.0F)
+        barChart.data = data
+        barChart.invalidate()
     }
 }

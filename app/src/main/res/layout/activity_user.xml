@@ -19,40 +19,58 @@
             android:id="@+id/uhomeIcon"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            android:src="@mipmap/ic_launcher_foreground" />
+            android:src="@mipmap/ic_launcher_foreground"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:orientation="vertical"
+            android:id="@+id/credit"
+            android:visibility="visible"
+            tools:visibility="gone">
+
+            <TextView
+                android:id="@+id/creditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="qwerty"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+        </LinearLayout>
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/signInButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            tools:visibility="gone"
             android:elevation="8dp"
-            />
+            android:visibility="visible"
+            tools:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/startApplication"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:elevation="8dp"
                 android:text="Start Application"
+                android:theme="@style/ThemeOverlay.MyGreyButton"
                 android:visibility="gone"
                 tools:ignore="HardcodedText"
-                tools:visibility="visible"
-                android:elevation="8dp"
-                />
+                tools:visibility="visible" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/signOutAndDisconnect"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_height="0dp"
             android:layout_weight="1.8"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
@@ -66,11 +84,9 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="@string/sign_out"
-                android:theme="@style/ThemeOverlay.MyDarkButton"
                 android:elevation="8dp"
-                />
+                android:text="@string/sign_out"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
 
         </LinearLayout>
 

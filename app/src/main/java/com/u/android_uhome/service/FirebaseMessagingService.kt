@@ -49,6 +49,11 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 remoteMessage.data["body"].toString(),
                 remoteMessage.data["name"].toString()
             )
+        } else {
+            notification.alertNotification(
+                remoteMessage.data["title"].toString(),
+                remoteMessage.data["body"].toString()
+            )
         }
 
     }

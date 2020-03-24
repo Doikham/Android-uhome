@@ -1,11 +1,17 @@
 package com.u.android_uhome.user
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.google.android.gms.auth.api.signin.GoogleSignIn.*
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.view.animation.TranslateAnimation
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn.getClient
+import com.google.android.gms.auth.api.signin.GoogleSignIn.getSignedInAccountFromIntent
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -19,12 +25,14 @@ import com.u.android_uhome.home.HomeActivity
 import com.u.android_uhome.service.FirebaseMessagingService
 import kotlinx.android.synthetic.main.activity_user.*
 
+
 class UserActivity : AppCompatActivity(), View.OnClickListener {
 
     private val TAG = "MainActivity"
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
@@ -41,6 +49,36 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
 
         startService(Intent(applicationContext, FirebaseMessagingService::class.java))
 
+        creditText.text =
+            "uHome\nDevelopment team\n\n" + "Chaniporn\tWengweerakeat\n" + "Neramit\tSingh\n" + "Sethawit\tSuwincharat"
+        val anim: Animation = TranslateAnimation(
+            Animation.RELATIVE_TO_PARENT, 0f
+            , Animation.RELATIVE_TO_PARENT, 0f
+            , Animation.RELATIVE_TO_PARENT, 0f
+            , Animation.RELATIVE_TO_PARENT, 0.3f
+        )
+
+        anim.initialize(
+            creditText.width, creditText.height
+            , credit.width, credit.height
+        )
+        anim.duration = 7000
+        anim.fillAfter = true
+        anim.interpolator = LinearInterpolator()
+
+        credit.visibility = View.GONE
+        uhomeIcon.visibility = View.VISIBLE
+
+        uhomeIcon.setOnClickListener {
+            creditText.startAnimation(anim)
+            uhomeIcon.visibility = View.GONE
+            credit.visibility = View.VISIBLE
+        }
+
+        credit.setOnClickListener {
+            credit.visibility = View.GONE
+            uhomeIcon.visibility = View.VISIBLE
+        }
     }
 
     public override fun onStart() {

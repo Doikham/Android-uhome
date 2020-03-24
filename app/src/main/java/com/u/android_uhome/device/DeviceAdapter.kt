@@ -44,7 +44,6 @@ class DeviceAdapter(
         val context: Context = v!!.context
         ColorPickerDialogBuilder
             .with(context)
-//                .setTitle(R.string.color_dialog_title)
             .initialColor(-0x1)
             .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
             .density(12)
@@ -98,6 +97,7 @@ class DeviceAdapter(
                     android.R.color.holo_blue_bright
                 )
             )
+
             .alphaSliderOnly()
             .build()
             .show()
