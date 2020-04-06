@@ -1,5 +1,6 @@
 package com.u.android_uhome.utils
 
+import com.u.android_uhome.average.AverageModel
 import com.u.android_uhome.device.DeviceModel
 import com.u.android_uhome.estimote.EstimoteModel
 import com.u.android_uhome.find.FindMyFamModel
@@ -10,11 +11,6 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface APICenter {
-    @GET("/api/device/{uid}")
-    fun getDeviceDetail(@Path("uid") uid: Int?): Call<List<HomeModel.Response>>
-
-    @POST("/api/device/get")
-    fun getDeviceList(@Body request: HomeModel.Request): Call<List<HomeModel.Response>>
 
     @POST("/switchLight")
     fun toggleSwitch(@Body request: HomeModel.RequestSwitchLight): Call<HomeModel.ResponseSwitchLight>
@@ -51,4 +47,10 @@ interface APICenter {
 
     @POST("/home/getUserLocations")
     fun findMember(@Body request: FindMyFamModel.Request): Call<FindMyFamModel.Response>
+
+    @POST("/api/getUserAverage")
+    fun getAverageTime(@Body request: AverageModel.RequestAverageTime): Call<AverageModel.ResponseAverage>
+
+    @POST("/admin/getUser")
+    fun getUserList(@Body request: AverageModel.RequestResidentList): Call<AverageModel.ResponseResidentList>
 }

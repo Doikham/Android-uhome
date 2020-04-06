@@ -11,7 +11,6 @@
         android:id="@+id/toolbar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme">
@@ -28,67 +27,93 @@
 
             <Button
                 android:id="@+id/goBackBtn"
-                android:layout_width="15dp"
+                android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_margin="5dp"
-                android:background="@drawable/arrow_64"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/arrow_64" />
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="7"
+                android:layout_weight="8"
+                android:gravity="center"
                 android:text="@string/records"
                 android:textAlignment="center"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="26sp" />
+                android:textColor="@color/white" />
 
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal"
-        android:weightSum="5">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
 
-        <TextView
-            android:id="@+id/displayDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="@string/display_date"
-            android:textAlignment="center" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:weightSum="6"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/displayDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="4"
+                android:text="@string/display_date"
+                android:textAlignment="center"
+                tools:ignore="NestedWeights" />
+
+            <Button
+                android:id="@+id/changeDateBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/select"
+                android:layout_gravity="center"
+                android:theme="@style/ThemeOverlay.MyGreyButton"
+                style="@style/Widget.AppCompat.Button.Colored" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical"
+            android:layout_weight="8">
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barchart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </com.github.mikephil.charting.charts.BarChart>
+        </LinearLayout>
 
         <Button
-            android:id="@+id/changeDateBtn"
+            android:id="@+id/backFromRecord"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="@string/change_date" />
+            android:text="@string/back"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/ThemeOverlay.MyDarkButton"/>
+
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barchart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </com.github.mikephil.charting.charts.BarChart>
-    </LinearLayout>
-
 </LinearLayout>

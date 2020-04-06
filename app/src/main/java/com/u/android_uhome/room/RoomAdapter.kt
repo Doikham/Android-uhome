@@ -2,7 +2,6 @@ package com.u.android_uhome.room
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +48,6 @@ class RoomAdapter(
         holder.name.text = rooms[position].roomName
         holder.type.text = rooms[position].roomType
         holder.itemView.setOnClickListener {
-            Log.d("info", rooms[position].roomId.toString())
             onClick(holder.itemView, rooms[position].roomId)
         }
     }

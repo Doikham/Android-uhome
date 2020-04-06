@@ -8,7 +8,7 @@ class RecordModel {
         @SerializedName("idToken") val idToken: String,
         @SerializedName("date") val date: String,
         @SerializedName("HomeID") val homeId: String
-        )
+    )
 
     data class ResponseRecord(
         @SerializedName("message") val message: Array<Array<String>>

@@ -1,7 +1,6 @@
 package com.u.android_uhome.find
 
 import android.annotation.SuppressLint
-import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,7 @@ import com.u.android_uhome.R
 import kotlinx.android.synthetic.main.member.view.*
 
 class FindMyFamAdapter(
-    private val members: List<FindMyFamModel.ResponseFamily>,
-    private val token: String,
-    private val homeId: String
+    private val members: List<FindMyFamModel.ResponseFamily>
 ) :
     RecyclerView.Adapter<FindMyFamAdapter.ViewHolder>() {
 
@@ -31,8 +28,8 @@ class FindMyFamAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.userName.text = members[position].userName
-        holder.roomName.text = "Room: "+members[position].roomName
-        holder.enterTime.text = "Time: "+members[position].enterTime
+        holder.roomName.text = "Room: " + members[position].roomName
+        holder.enterTime.text = "Time: " + members[position].enterTime
     }
 
     class ViewHolder(itemLayoutView: View) : RecyclerView.ViewHolder(itemLayoutView) {

@@ -1,6 +1,5 @@
 package com.u.android_uhome.device
 
-import android.util.Log
 import com.u.android_uhome.home.HomeModel
 import com.u.android_uhome.utils.APICenter
 import retrofit2.Call
@@ -26,8 +25,6 @@ class DeviceService {
                 call: Call<DeviceModel.Response>?,
                 response: Response<DeviceModel.Response>?
             ) {
-                Log.d("app", response?.body()?.message.toString())
-
             }
 
             override fun onFailure(
@@ -47,8 +44,6 @@ class DeviceService {
                 call: Call<HomeModel.ResponseSwitchLight>?,
                 response: Response<HomeModel.ResponseSwitchLight>?
             ) {
-                Log.d("app", response?.body()?.message.toString())
-
             }
 
             override fun onFailure(

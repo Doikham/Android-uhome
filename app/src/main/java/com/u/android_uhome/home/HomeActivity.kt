@@ -1,13 +1,10 @@
 package com.u.android_uhome.home
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.media.MediaPlayer
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.NonNull
@@ -21,19 +18,16 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.InstanceIdResult
 import com.u.android_uhome.utils.APICenter
 import com.u.android_uhome.R
-import com.u.android_uhome.record.RecordActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.security.AccessController.getContext
 
 class HomeActivity : AppCompatActivity() {
 
     private val TAG = "HomeActivity"
-    private lateinit var mp: MediaPlayer
 
     @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +44,10 @@ class HomeActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         goUserBtn.setOnClickListener {
+            finish()
+        }
+
+        backFromHome.setOnClickListener {
             finish()
         }
 
@@ -79,10 +77,13 @@ class HomeActivity : AppCompatActivity() {
                 response: Response<HomeModel.ResponseHomeMessage>?
             ) {
                 setAdapterData(response?.body()?.message, tokenId)
-                Log.d("message", response?.body()?.message.toString())
-                if(response?.body()?.message?.isEmpty()!!)
-                    progressBarHome.visibility = View.VISIBLE
-                else {
+                if (response?.body()?.message?.isEmpty()!!) {
+                    progressBarHome.visibility = View.GONE
+                    Toast.makeText(
+                        this@HomeActivity, "No house found",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     progressBarHome.visibility = View.GONE
                     homeList.visibility = View.VISIBLE
                 }
@@ -99,13 +100,12 @@ class HomeActivity : AppCompatActivity() {
             }
         })
 
-        val call1 = service.getServerStatus()
-        call1.enqueue(object : Callback<HomeModel.ResponseServerStatus> {
+        val callGetStatus = service.getServerStatus()
+        callGetStatus.enqueue(object : Callback<HomeModel.ResponseServerStatus> {
             override fun onResponse(
                 call1: Call<HomeModel.ResponseServerStatus>?,
                 response: Response<HomeModel.ResponseServerStatus>?
             ) {
-                Log.d("app", response?.body().toString())
                 serverStatus.text = response!!.body()!!.serverStatus
             }
 
@@ -115,6 +115,8 @@ class HomeActivity : AppCompatActivity() {
             ) {
             }
         })
+        val shared: SharedPreferences =
+            getSharedPreferences("MyPref", Context.MODE_PRIVATE)
 
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult?> {
@@ -122,13 +124,18 @@ class HomeActivity : AppCompatActivity() {
                     if (!task.isSuccessful) { //To do//
                         return
                     }
-                    // Get the Instance ID token//
+
                     val fcmToken: String? = task.result?.token
                     val msg = getString(R.string.fcm_token, fcmToken)
 
-                    sendFcm(fcmToken.toString(), tokenId, service)
+                    if (shared.getString("fcmToken", "") == fcmToken)
+                        return
 
-                    Log.d(TAG, msg)
+                    sendFcm(fcmToken.toString(), tokenId, service)
+                    val editor: SharedPreferences.Editor = shared.edit()
+                    editor.putString("fcmToken", fcmToken)
+                    editor.apply()
+
                 }
             })
 
