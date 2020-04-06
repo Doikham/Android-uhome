@@ -9,13 +9,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.estimote.proximity_sdk.api.ProximityObserverBuilder
 import com.estimote.proximity_sdk.api.ProximityZoneBuilder
 import com.u.android_uhome.R
 import com.u.android_uhome.dashboard.DashBoardActivity
-import com.u.android_uhome.room.RoomActivity
 import com.u.android_uhome.user.UserActivity
 
 class EstimoteNotification(private val context: Context) {
@@ -126,7 +124,7 @@ class EstimoteNotification(private val context: Context) {
                         "You are not in the house"
                     )
                 )
-                .onError { /* handle errors here */ }
+                .onError { }
                 .build()
 
         val tableZone = ProximityZoneBuilder()
@@ -142,7 +140,7 @@ class EstimoteNotification(private val context: Context) {
                     buildNotification("Welcome!", "You have entered the $roomName")
                 )
                 val service = EstimoteService()
-                if (shared.getString("start_timer_id","").isNullOrEmpty()) {
+                if (shared.getString("start_timer_id", "").isNullOrEmpty()) {
                     id = service.callStartTimer(
                         token, roomId.toString(),
                         roomName.toString(), roomType.toString(), homeId.toString()
@@ -151,7 +149,6 @@ class EstimoteNotification(private val context: Context) {
                     editor.putString("start_timer_id", id)
                     editor.apply()
                 }
-                // Check for user properties
             }
             .onExit {
                 notificationManager.notify(

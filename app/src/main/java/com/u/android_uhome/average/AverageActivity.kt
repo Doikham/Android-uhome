@@ -2,14 +2,12 @@ package com.u.android_uhome.average
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
@@ -44,7 +42,6 @@ class AverageActivity : AppCompatActivity() {
         val pieChart = findViewById<View>(R.id.pie_chart) as PieChart
 
         pieChart.setDrawEntryLabels(false)
-//        pieChart.setUsePercentValues(true)
         pieChart.description.isEnabled = false
         pieChart.setExtraOffsets(5f, 10f, 5f, -110f)
 
@@ -105,7 +102,6 @@ class AverageActivity : AppCompatActivity() {
                 call: Call<AverageModel.ResponseResidentList>?,
                 response: Response<AverageModel.ResponseResidentList>?
             ) {
-                Log.d("COMEON", response?.body()?.message.toString())
                 setAdapterData(response?.body()?.message, userSpinner, tokenId, homeId, pieChart)
             }
 

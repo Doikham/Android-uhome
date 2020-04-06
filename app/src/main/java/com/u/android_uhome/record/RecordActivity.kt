@@ -72,7 +72,7 @@ class RecordActivity : AppCompatActivity() {
         rightAxis.setLabelCount(8, false)
         rightAxis.spaceTop = 15f
         rightAxis.textSize = 30F
-        rightAxis.axisMinimum = 0f // this replaces setStartAtZero(true)
+        rightAxis.axisMinimum = 0f
 
         val l: Legend = barChart.legend
         l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
@@ -102,14 +102,10 @@ class RecordActivity : AppCompatActivity() {
         val tokenId = bundle?.getString("idToken")
         val homeId = bundle?.getString("homeId")
 
-        // get the references from layout file
         textDate = this.displayDate
         buttonDate = this.changeDateBtn
 
-        val calendar = Calendar.getInstance(TimeZone.getDefault())
-
         updateDateInView(tokenId!!, barChart, homeId!!)
-        // create an OnDateSetListener
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
@@ -117,12 +113,10 @@ class RecordActivity : AppCompatActivity() {
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 updateDateInView(tokenId, barChart, homeId)
             }
-        // when you click on the button, show DatePickerDialog that is set with OnDateSetListener
         buttonDate!!.setOnClickListener {
             DatePickerDialog(
                 this@RecordActivity,
                 dateSetListener,
-                // set DatePickerDialog to point to today's date when it loads up
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)

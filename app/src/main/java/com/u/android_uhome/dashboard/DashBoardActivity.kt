@@ -6,9 +6,6 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
-import android.widget.GridView
 import android.widget.Toast
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.estimote.proximity_sdk.api.EstimoteCloudCredentials
@@ -121,7 +118,6 @@ class DashBoardActivity : AppCompatActivity() {
             .createEstimoteRequirementsWizard()
             .fulfillRequirements(this,
                 onRequirementsFulfilled = {
-                    Log.d("app", "requirements fulfilled")
                     app.enableBeaconNotifications(tokenId, shared)
                 },
                 onRequirementsMissing = { requirements ->
@@ -143,6 +139,7 @@ class DashBoardActivity : AppCompatActivity() {
         intent.putExtra("tokenId", tokenId)
         startActivity(intent)
     }
+
     private fun goToStatPage() {
         val bundle = intent.extras
         val tokenId = bundle?.getString("tokenId")

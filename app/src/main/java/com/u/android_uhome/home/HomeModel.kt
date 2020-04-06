@@ -24,7 +24,6 @@ class HomeModel {
 
     data class ResponseSwitchLight(
         @SerializedName("message") val message: String
-//        @SerializedName("current_state") val currentState: Boolean
     )
 
     data class ResponseToggle(

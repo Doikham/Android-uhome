@@ -1,12 +1,7 @@
 package com.u.android_uhome.device
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.SystemClock
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -15,8 +10,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.u.android_uhome.utils.APICenter
 import com.u.android_uhome.R
-import com.u.android_uhome.find.FindMyFamActivity
-import com.u.android_uhome.record.RecordActivity
 import kotlinx.android.synthetic.main.activity_device.*
 import kotlinx.android.synthetic.main.activity_home.toolbar1
 import retrofit2.Call
@@ -66,7 +59,7 @@ class DeviceActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        var service = retrofit.create(APICenter::class.java)
+        val service = retrofit.create(APICenter::class.java)
         val request = DeviceModel.Request(tokenId!!, roomId)
         val call = service.getDevices(request)
         call.enqueue(object : Callback<DeviceModel.ResponseMessage> {
@@ -75,7 +68,6 @@ class DeviceActivity : AppCompatActivity() {
                 response: Response<DeviceModel.ResponseMessage>?
             ) {
                 setAdapterData(response?.body()?.message, tokenId, homeId)
-                Log.d("message", response?.body()?.message.toString())
                 if (response?.body()?.message?.isEmpty()!!) {
                     progressBarDevice.visibility = View.GONE
                     Toast.makeText(

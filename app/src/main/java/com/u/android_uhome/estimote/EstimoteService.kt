@@ -34,7 +34,6 @@ class EstimoteService {
         StrictMode.setThreadPolicy(policy)
         try {
             val response: Response<RoomModel.ResponseStartTimer> = call.execute()
-            Log.d("app", "Start timer")
             return response.body()?.id
         } catch (ex: Exception) {
             ex.printStackTrace()
@@ -43,7 +42,7 @@ class EstimoteService {
     }
 
     fun callStopTimer(token: String, id: String) {
-        var service = retrofit.create(APICenter::class.java)
+        val service = retrofit.create(APICenter::class.java)
         val request = HomeModel.RequestStopTimer(token, id)
         val call = service.stopTimer(request)
         call.enqueue(object : Callback<HomeModel.ResponseStopTimer> {
@@ -51,7 +50,6 @@ class EstimoteService {
                 call: Call<HomeModel.ResponseStopTimer>?,
                 response: Response<HomeModel.ResponseStopTimer>?
             ) {
-                Log.d("app", "Stop timer")
             }
 
             override fun onFailure(

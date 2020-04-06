@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.u.android_uhome.R
-import com.u.android_uhome.home.HomeService
 import kotlinx.android.synthetic.main.device.view.*
 
 class DeviceAdapter(
@@ -47,12 +46,7 @@ class DeviceAdapter(
             .initialColor(-0x1)
             .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
             .density(12)
-            .setOnColorChangedListener { selectedColor ->
-                // Handle on color change
-                Log.d(
-                    "ColorPicker",
-                    "onColorChanged: 0x" + Integer.toHexString(selectedColor)
-                )
+            .setOnColorChangedListener {
             }
             .setOnColorSelectedListener { selectedColor ->
                 Toast.makeText(
@@ -79,7 +73,6 @@ class DeviceAdapter(
                     ).show()
                 }
                 val service = DeviceService()
-                Log.d("color", Integer.toHexString(selectedColor))
                 service.callChangeColor(
                     token,
                     deviceId.toString(),
@@ -111,7 +104,6 @@ class DeviceAdapter(
             service.callToggleSwitch(token, devices[position].deviceId.toString(), homeId)
         }
         holder.itemView.setOnClickListener {
-            Log.d("info", devices[position].deviceId.toString())
             onClick(holder.itemView, devices[position].deviceId)
         }
     }

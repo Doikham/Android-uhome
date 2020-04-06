@@ -1,29 +1,15 @@
 package com.u.android_uhome.room
 
-import android.app.Application
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.SystemClock
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
-import com.estimote.proximity_sdk.api.EstimoteCloudCredentials
 import com.u.android_uhome.utils.APICenter
 import com.u.android_uhome.R
-import com.u.android_uhome.estimote.EstimoteApplication
-import com.u.android_uhome.estimote.EstimoteModel
-import com.u.android_uhome.find.FindMyFamActivity
-import com.u.android_uhome.record.RecordActivity
 import kotlinx.android.synthetic.main.activity_home.toolbar1
 import kotlinx.android.synthetic.main.activity_room.*
 import retrofit2.Call
@@ -82,7 +68,6 @@ class RoomActivity : AppCompatActivity() {
                 response: Response<RoomModel.ResponseMessage>?
             ) {
                 setAdapterData(response?.body()?.message, tokenId, homeId)
-                Log.d("message", response?.body()?.message.toString())
                 if (response?.body()?.message?.isEmpty()!!) {
                     progressBarRoom.visibility = View.GONE
                     Toast.makeText(

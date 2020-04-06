@@ -11,11 +11,6 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface APICenter {
-    @GET("/api/device/{uid}")
-    fun getDeviceDetail(@Path("uid") uid: Int?): Call<List<HomeModel.Response>>
-
-    @POST("/api/device/get")
-    fun getDeviceList(@Body request: HomeModel.Request): Call<List<HomeModel.Response>>
 
     @POST("/switchLight")
     fun toggleSwitch(@Body request: HomeModel.RequestSwitchLight): Call<HomeModel.ResponseSwitchLight>
